@@ -117,6 +117,8 @@ export default function Settings() {
     credits: 8450,
     nextBilling: new Date("2024-02-15"),
     usageThisMonth: 2150,
+    subscriptionActivatedDate: new Date("2023-06-15"),
+    planExpiryDate: new Date("2024-06-15"),
   });
 
   const availableCredit = Math.max(0, billing.credits - billing.usageThisMonth);
