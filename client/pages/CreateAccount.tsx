@@ -484,7 +484,7 @@ export default function CreateAccount() {
         <AgreementModal
           open={agreementModalOpen}
           onOpenChange={setAgreementModalOpen}
-          onAcknowledge={handleAgreementAcknowledge}
+          onConfirm={handleAgreementConfirm}
         />
       </div>
 
