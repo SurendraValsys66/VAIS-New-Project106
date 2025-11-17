@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   ArrowLeft,
   ArrowRight,
@@ -26,6 +27,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import IntegrationsFooter from "@/components/auth/IntegrationsFooter";
 import AssociationPartners from "@/components/auth/AssociationPartners";
+import AgreementModal from "@/components/auth/AgreementModal";
 
 export default function CreateAccount() {
   const [mounted, setMounted] = useState(false);
@@ -33,6 +35,8 @@ export default function CreateAccount() {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [agreementModalOpen, setAgreementModalOpen] = useState(false);
+  const [agreementConfirmed, setAgreementConfirmed] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,6 +45,12 @@ export default function CreateAccount() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!agreementConfirmed) {
+      setAgreementModalOpen(true);
+      return;
+    }
+
     setIsLoading(true);
     await new Promise((r) => setTimeout(r, 800));
     setIsLoading(false);
@@ -49,6 +59,10 @@ export default function CreateAccount() {
       email = localStorage.getItem("signupEmail") || "";
     } catch (e) {}
     navigate("/email-verification", { state: { email } });
+  };
+
+  const handleAgreementConfirm = () => {
+    setAgreementConfirmed(true);
   };
 
   const aiElements = [
@@ -383,30 +397,30 @@ export default function CreateAccount() {
                 </div>
                 <div className="flex items-start space-x-3">
                   <input
-                    id="terms"
                     type="checkbox"
-                    required
-                    className="mt-1 h-4 w-4 rounded border-valasys-gray-300 text-valasys-orange focus:ring-valasys-orange/20"
+                    id="agreementCheck"
+                    checked={agreementConfirmed}
+                    disabled={true}
+                    className="mt-1 h-4 w-4 rounded border-valasys-gray-300 text-valasys-orange cursor-not-allowed"
                   />
                   <label
-                    htmlFor="terms"
+                    htmlFor="agreementCheck"
                     className="text-sm text-valasys-gray-700"
                   >
-                    By signing up, you agree to our{" "}
-                    <a
-                      href="#"
-                      className="text-valasys-orange hover:text-valasys-orange-light underline"
+                    I agree to the{" "}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setAgreementModalOpen(true);
+                      }}
+                      className="text-valasys-orange hover:text-valasys-orange-light underline font-semibold"
                     >
-                      Terms & Conditions
-                    </a>{" "}
-                    and{" "}
-                    <a
-                      href="#"
-                      className="text-valasys-orange hover:text-valasys-orange-light underline"
-                    >
-                      Privacy Policy
-                    </a>
-                    .
+                      Master Subscriber Agreement
+                    </button>
+                    <span aria-hidden="true" className="text-red-500 ml-1">
+                      *
+                    </span>
                   </label>
                 </div>
 
@@ -446,6 +460,12 @@ export default function CreateAccount() {
             <IntegrationsFooter />
           </div>
         </div>
+
+        <AgreementModal
+          open={agreementModalOpen}
+          onOpenChange={setAgreementModalOpen}
+          onConfirm={handleAgreementConfirm}
+        />
       </div>
 
       <div
