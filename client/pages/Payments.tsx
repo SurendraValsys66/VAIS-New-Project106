@@ -736,6 +736,7 @@ export default function Payments() {
                     onSetDefault={handleSetDefaultPaymentMethod}
                     onAutopayChange={handleAutopayChange}
                     onEdit={handleEditPaymentMethod}
+                    isLastPaymentMethod={paymentMethodsList.length === 1}
                   />
                 ))}
               </div>
