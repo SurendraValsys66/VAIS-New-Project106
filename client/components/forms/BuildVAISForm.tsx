@@ -502,6 +502,16 @@ export default function BuildVAISForm() {
             <span className="text-sm font-medium text-valasys-gray-700 flex items-center">
               <Target className="w-4 h-4 mr-2 text-valasys-orange" />
               Score
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Info className="w-3.5 h-3.5 ml-1.5 text-valasys-gray-400 hover:text-valasys-gray-600 cursor-help transition-colors" />
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-xs">
+                  <p className="text-xs leading-relaxed">
+                    Our score is calculated using AI-powered analysis of prospect engagement signals, company firmographics, intent indicators, and historical conversion data to predict likelihood of successful engagement.
+                  </p>
+                </TooltipContent>
+              </Tooltip>
             </span>
             <span className="text-sm font-semibold text-valasys-gray-900">{topic.conversion}</span>
           </div>
