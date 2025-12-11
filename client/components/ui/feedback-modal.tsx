@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -13,11 +13,31 @@ interface FeedbackModalProps {
 }
 
 const ratingEmojis = [
-  { value: 1, emoji: "😑", label: "Very Bad" },
-  { value: 2, emoji: "😕", label: "Bad" },
-  { value: 3, emoji: "😐", label: "Neutral" },
-  { value: 4, emoji: "🙂", label: "Good" },
-  { value: 5, emoji: "😄", label: "Excellent" },
+  {
+    value: 1,
+    label: "Very Bad",
+    gif: "https://cdn.builder.io/o/assets%2Ff9a15ea1ed2e4a49812760317a321a66%2F0f494860515e4ea8b119bf8a87a3a604?alt=media&token=8f58c95d-f3d5-47f5-9175-9695960d477a&apiKey=f9a15ea1ed2e4a49812760317a321a66"
+  },
+  {
+    value: 2,
+    label: "Bad",
+    gif: "https://cdn.builder.io/o/assets%2Ff9a15ea1ed2e4a49812760317a321a66%2F159a388fa499458aa678a359ddcfd6be?alt=media&token=7bff03eb-2b43-4829-9e95-a58e3768ef87&apiKey=f9a15ea1ed2e4a49812760317a321a66"
+  },
+  {
+    value: 3,
+    label: "Neutral",
+    gif: "https://cdn.builder.io/o/assets%2Ff9a15ea1ed2e4a49812760317a321a66%2F7909ba7ecd4d4178951f1c721472172f?alt=media&token=0a419fc2-274f-4ce5-b0f4-e22442572b60&apiKey=f9a15ea1ed2e4a49812760317a321a66"
+  },
+  {
+    value: 4,
+    label: "Good",
+    gif: "https://cdn.builder.io/o/assets%2Ff9a15ea1ed2e4a49812760317a321a66%2Fead231d28664412e85e3d27393b50511?alt=media&token=8b1c2a7e-101f-4174-8d43-24917fdd8cda&apiKey=f9a15ea1ed2e4a49812760317a321a66"
+  },
+  {
+    value: 5,
+    label: "Excellent",
+    gif: "https://cdn.builder.io/o/assets%2Ff9a15ea1ed2e4a49812760317a321a66%2Fc3469c9a8c544795832c09459f70e473?alt=media&token=40f0a4db-707d-4a66-8858-b780198c8c07&apiKey=f9a15ea1ed2e4a49812760317a321a66"
+  },
 ];
 
 export function FeedbackModal({ open, onOpenChange }: FeedbackModalProps) {
