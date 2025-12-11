@@ -1553,6 +1553,9 @@ export default function BuildVAISForm() {
             </div>
           </DialogContent>
         </Dialog>
+
+        {/* Feedback Modal */}
+        <FeedbackModal open={showFeedbackModal} onOpenChange={setShowFeedbackModal} />
       </div>
     </TooltipProvider>
   );
