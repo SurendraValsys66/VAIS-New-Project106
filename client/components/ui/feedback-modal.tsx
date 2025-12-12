@@ -47,16 +47,11 @@ export function FeedbackModal({ open, onOpenChange }: FeedbackModalProps) {
           <div className="space-y-3 text-center">
             <h3 className="text-lg font-bold text-gray-900">
               We love to hear from you! How's your experience with the{" "}
-              <span className="text-valasys-orange">Valasys AI Score</span>?
+              <span style={{ color: "#f7c52a" }}>Valasys AI Score</span>?
             </h3>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Your feedback helps us improve our service.
-              <br />
-              Please share your thoughts and suggestions below.
-            </p>
 
             {/* Star Rating */}
-            <div className="flex justify-center items-center gap-2 py-4">
+            <div className="flex justify-center items-center gap-5 py-4">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
@@ -72,21 +67,34 @@ export function FeedbackModal({ open, onOpenChange }: FeedbackModalProps) {
                       "w-8 h-8 transition-all duration-200",
                       (hoveredRating !== null && star <= hoveredRating) ||
                         (rating !== null && star <= rating)
-                        ? "fill-valasys-orange text-valasys-orange"
-                        : "text-gray-300 hover:text-valasys-orange",
+                        ? "text-[#f7c52a]"
+                        : "text-gray-300 hover:text-[#f7c52a]",
                     )}
+                    style={
+                      (hoveredRating !== null && star <= hoveredRating) ||
+                      (rating !== null && star <= rating)
+                        ? { fill: "#f7c52a" }
+                        : {}
+                    }
                   />
                 </button>
               ))}
             </div>
           </div>
 
+          {/* Description Text */}
+          <p className="text-sm text-gray-600 leading-relaxed text-center">
+            Your feedback helps us improve our service.
+            <br />
+            Please share your thoughts and suggestions below.
+          </p>
+
           {/* Simple Textarea */}
           <textarea
             placeholder="Any comments for us?"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            className="w-full p-4 text-sm text-gray-900 placeholder-gray-400 resize-none focus:outline-none border border-gray-200 rounded-lg min-h-32 focus:ring-2 focus:ring-valasys-orange focus:border-transparent"
+            className="w-full p-4 text-sm text-gray-900 placeholder-gray-400 resize-none focus:outline-none border border-gray-200 rounded-lg min-h-32 focus:ring-2 focus:ring-[#f7c52a] focus:border-transparent"
           />
 
           {/* Send Button */}
