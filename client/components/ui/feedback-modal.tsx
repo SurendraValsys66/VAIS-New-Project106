@@ -55,103 +55,39 @@ export function FeedbackModal({ open, onOpenChange }: FeedbackModalProps) {
               Please share your thoughts and suggestions below.
             </p>
 
-            {/* GIF Rating */}
+            {/* Star Rating */}
             <div className="flex justify-center items-center gap-2 py-4">
-              {ratingEmojis.map((item) => (
-                <div
-                  key={item.value}
-                  className="flex flex-col items-center gap-1"
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  onClick={() => setRating(star)}
+                  onMouseEnter={() => setHoveredRating(star)}
+                  onMouseLeave={() => setHoveredRating(null)}
+                  className="transition-all duration-200 transform"
+                  title={`${star} star${star !== 1 ? "s" : ""}`}
+                  type="button"
                 >
-                  <button
-                    onClick={() => setRating(item.value)}
-                    onMouseEnter={() => setHoveredRating(item.value)}
-                    onMouseLeave={() => setHoveredRating(null)}
+                  <Star
                     className={cn(
-                      "transition-all duration-200 transform relative flex items-center justify-center",
-                      rating === item.value
-                        ? "scale-125"
-                        : "scale-100 hover:scale-110",
-                      rating === item.value &&
-                        "p-1.5 bg-valasys-orange rounded-full",
+                      "w-8 h-8 transition-all duration-200",
+                      (hoveredRating !== null && star <= hoveredRating) ||
+                        (rating !== null && star <= rating)
+                        ? "fill-valasys-orange text-valasys-orange"
+                        : "text-gray-300 hover:text-valasys-orange",
                     )}
-                    title={item.label}
-                    type="button"
-                  >
-                    <img
-                      ref={(el) => {
-                        if (el) gifRefs.current[item.value] = el;
-                      }}
-                      src={item.gif}
-                      alt={item.label}
-                      className={cn(
-                        "w-8 h-8 rounded-full object-cover transition-all duration-200",
-                        rating === item.value || hoveredRating === item.value
-                          ? "opacity-100 drop-shadow-lg"
-                          : "opacity-70",
-                      )}
-                    />
-                    {(rating === item.value ||
-                      hoveredRating === item.value) && (
-                      <div className="absolute inset-0 rounded-full ring-2 ring-offset-1 ring-valasys-orange pointer-events-none" />
-                    )}
-                  </button>
-                  <span className="text-xs text-gray-600 text-center max-w-[60px] leading-tight">
-                    {item.label}
-                  </span>
-                </div>
+                  />
+                </button>
               ))}
             </div>
           </div>
 
-          {/* Formatting Toolbar */}
-          <div className="border border-gray-200 rounded-lg overflow-hidden">
-            <div className="flex items-center gap-1 p-2 bg-gray-50 border-b border-gray-200">
-              <FormatButton
-                icon={Bold}
-                onClick={() => insertFormatting("bold")}
-                title="Bold"
-              />
-              <FormatButton
-                icon={Italic}
-                onClick={() => insertFormatting("italic")}
-                title="Italic"
-              />
-              <FormatButton
-                icon={Strikethrough}
-                onClick={() => insertFormatting("strikethrough")}
-                title="Strikethrough"
-              />
-              <FormatButton
-                icon={Link}
-                onClick={() => insertFormatting("link")}
-                title="Link"
-              />
-              <FormatButton
-                icon={List}
-                onClick={() => insertFormatting("list")}
-                title="Bullet List"
-              />
-              <FormatButton
-                icon={ListOrdered}
-                onClick={() => insertFormatting("ordered-list")}
-                title="Ordered List"
-              />
-              <FormatButton
-                icon={Code}
-                onClick={() => insertFormatting("code")}
-                title="Code"
-              />
-            </div>
-
-            {/* Textarea */}
-            <textarea
-              id="feedback-textarea"
-              placeholder="Add a comment..."
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              className="w-full p-4 text-sm text-gray-900 placeholder-gray-400 resize-none focus:outline-none min-h-32"
-            />
-          </div>
+          {/* Simple Textarea */}
+          <textarea
+            placeholder="Any comments for us?"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            className="w-full p-4 text-sm text-gray-900 placeholder-gray-400 resize-none focus:outline-none border border-gray-200 rounded-lg min-h-32 focus:ring-2 focus:ring-valasys-orange focus:border-transparent"
+          />
 
           {/* Send Button */}
           <Button
@@ -163,24 +99,5 @@ export function FeedbackModal({ open, onOpenChange }: FeedbackModalProps) {
         </div>
       </DialogContent>
     </Dialog>
-  );
-}
-
-interface FormatButtonProps {
-  icon: React.ComponentType<{ className?: string }>;
-  onClick: () => void;
-  title: string;
-}
-
-function FormatButton({ icon: Icon, onClick, title }: FormatButtonProps) {
-  return (
-    <button
-      onClick={onClick}
-      className="p-2 hover:bg-gray-200 rounded transition-colors text-gray-700 hover:text-gray-900"
-      title={title}
-      type="button"
-    >
-      <Icon className="h-4 w-4" />
-    </button>
   );
 }
