@@ -288,11 +288,15 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
 
                   {/* Blocks Canvas */}
                   <div
+                    ref={drop}
                     style={{
                       backgroundColor: template.backgroundColor,
                       padding: `${template.padding}px`,
                     }}
-                    className="bg-white border border-t-0 border-gray-200 rounded-b-lg shadow-sm min-h-96"
+                    className={cn(
+                      "bg-white border border-t-0 border-gray-200 rounded-b-lg shadow-sm min-h-96 transition-all",
+                      isOver && "ring-2 ring-valasys-orange bg-orange-50"
+                    )}
                   >
                     {template.blocks.length === 0 ? (
                       <div className="text-center py-16 text-gray-400">
