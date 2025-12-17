@@ -208,7 +208,7 @@ const SectionsPanel: React.FC<SectionsPanelProps> = ({ onAddBlock }) => {
       title: "Two Column Cards",
       description: "Two side-by-side dark cards with titles and descriptions",
       preview:
-        "https://images.unsplash.com/photo-1460925895917-aeb19be489c7?w=400&h=200&fit=crop",
+        "data:image/svg+xml,%3Csvg width='400' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='200' fill='%23f5f5f5'/%3E%3Crect x='10' y='20' width='180' height='160' fill='%23333' rx='4'/%3E%3Ctext x='100' y='60' font-size='14' font-weight='bold' text-anchor='middle' fill='white'%3ETitle%3C/text%3E%3Ctext x='100' y='85' font-size='11' text-anchor='middle' fill='white'%3ELorem ipsum dolor%3C/text%3E%3Crect x='210' y='20' width='180' height='160' fill='%23333' rx='4'/%3E%3Ctext x='300' y='60' font-size='14' font-weight='bold' text-anchor='middle' fill='white'%3ETitle%3C/text%3E%3Ctext x='300' y='85' font-size='11' text-anchor='middle' fill='white'%3ELorem ipsum dolor%3C/text%3E%3C/svg%3E",
       blocks: () => [createTwoColumnCardBlock()],
     },
     {
@@ -216,7 +216,7 @@ const SectionsPanel: React.FC<SectionsPanelProps> = ({ onAddBlock }) => {
       title: "Promo Code Section",
       description: "Highlight a promotional code or offer",
       preview:
-        "https://images.unsplash.com/photo-1563207153-f403bf289096?w=400&h=200&fit=crop",
+        "data:image/svg+xml,%3Csvg width='400' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='200' fill='%23f9f9f9'/%3E%3Ctext x='200' y='60' font-size='14' text-anchor='middle' fill='%23666'%3ESave 15% on your next order!%3C/text%3E%3Crect x='80' y='90' width='240' height='70' fill='%23fff' stroke='%23ddd' stroke-width='2' rx='4'/%3E%3Ctext x='200' y='145' font-size='36' font-weight='bold' text-anchor='middle' fill='%23000' letter-spacing='3'%3EPROMO15%3C/text%3E%3C/svg%3E",
       blocks: () => [createPromoBlock()],
     },
     {
@@ -224,7 +224,7 @@ const SectionsPanel: React.FC<SectionsPanelProps> = ({ onAddBlock }) => {
       title: "Statistics Section",
       description: "Display key metrics or numbers in three columns",
       preview:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop",
+        "data:image/svg+xml,%3Csvg width='400' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='200' fill='%23f5f5f5'/%3E%3Ctext x='67' y='80' font-size='24' font-weight='bold' text-anchor='middle' fill='%23000'%3E4.8%3C/text%3E%3Ctext x='67' y='130' font-size='12' text-anchor='middle' fill='%23666'%3ERating%3C/text%3E%3Cline x1='134' y1='30' x2='134' y2='170' stroke='%23ddd' stroke-width='1'/%3E%3Ctext x='200' y='80' font-size='24' font-weight='bold' text-anchor='middle' fill='%23000'%3E120%3C/text%3E%3Ctext x='200' y='130' font-size='12' text-anchor='middle' fill='%23666'%3EReviews%3C/text%3E%3Cline x1='266' y1='30' x2='266' y2='170' stroke='%23ddd' stroke-width='1'/%3E%3Ctext x='333' y='80' font-size='24' font-weight='bold' text-anchor='middle' fill='%23000'%3E200K%3C/text%3E%3Ctext x='333' y='130' font-size='12' text-anchor='middle' fill='%23666'%3EDownloads%3C/text%3E%3C/svg%3E",
       blocks: () => [createStatsBlock()],
     },
     {
@@ -232,7 +232,7 @@ const SectionsPanel: React.FC<SectionsPanelProps> = ({ onAddBlock }) => {
       title: "Features Section",
       description: "Showcase features or benefits with icons and titles",
       preview:
-        "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop",
+        "data:image/svg+xml,%3Csvg width='400' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='200' fill='%23f5f5f5'/%3E%3Ctext x='67' y='45' font-size='28' text-anchor='middle'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3Ctext x='67' y='75' font-size='12' font-weight='bold' text-anchor='middle' fill='%23000'%3EFeature%3C/text%3E%3Ctext x='67' y='155' font-size='10' text-anchor='middle' fill='%23666'%3ELorem ipsum%3C/text%3E%3Ctext x='200' y='45' font-size='28' text-anchor='middle'%3E%F0%9F%8E%81%3C/text%3E%3Ctext x='200' y='75' font-size='12' font-weight='bold' text-anchor='middle' fill='%23000'%3EFeature%3C/text%3E%3Ctext x='200' y='155' font-size='10' text-anchor='middle' fill='%23666'%3ELorem ipsum%3C/text%3E%3Ctext x='333' y='45' font-size='28' text-anchor='middle'%3Eℹ%EF%B8%8F%3C/text%3E%3Ctext x='333' y='75' font-size='12' font-weight='bold' text-anchor='middle' fill='%23000'%3EFeature%3C/text%3E%3Ctext x='333' y='155' font-size='10' text-anchor='middle' fill='%23666'%3ELorem ipsum%3C/text%3E%3C/svg%3E",
       blocks: () => [createFeaturesBlock()],
     },
   ];
