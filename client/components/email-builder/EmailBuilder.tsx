@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { EmailCanvas } from "./EmailCanvas";
+import { SourceCodeView } from "./SourceCodeView";
 
 interface EmailBuilderProps {
   templateId?: string;
