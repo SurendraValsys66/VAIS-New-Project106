@@ -23,6 +23,7 @@ import {
   saveTemplateToLocalStorage,
   getTemplatesFromLocalStorage,
   deleteTemplateFromLocalStorage,
+  generateId,
 } from "./utils";
 import {
   Save,
@@ -82,13 +83,28 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
   const selectedBlock =
     template.blocks.find((b) => b.id === selectedBlockId) || null;
 
-  const handleAddBlock = useCallback((block: ContentBlock) => {
-    setTemplate((prev) => ({
-      ...prev,
-      blocks: [...prev.blocks, block],
-      updatedAt: new Date().toISOString(),
-    }));
-  }, []);
+  const handleAddBlock = useCallback(
+    (block: ContentBlock, position?: number) => {
+      setTemplate((prev) => {
+        const newBlocks = [...prev.blocks];
+        if (
+          position !== undefined &&
+          position >= 0 &&
+          position <= newBlocks.length
+        ) {
+          newBlocks.splice(position, 0, block);
+        } else {
+          newBlocks.push(block);
+        }
+        return {
+          ...prev,
+          blocks: newBlocks,
+          updatedAt: new Date().toISOString(),
+        };
+      });
+    },
+    [],
+  );
 
   const handleUpdateBlock = useCallback((block: ContentBlock) => {
     setTemplate((prev) => ({
@@ -108,6 +124,34 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
       setSelectedBlockId(null);
     }
   }, [selectedBlockId]);
+
+  const handleDeleteBlockById = useCallback((blockId: string) => {
+    setTemplate((prev) => ({
+      ...prev,
+      blocks: prev.blocks.filter((b) => b.id !== blockId),
+      updatedAt: new Date().toISOString(),
+    }));
+    setSelectedBlockId(null);
+  }, []);
+
+  const handleDuplicateBlock = useCallback(
+    (block: ContentBlock, position: number) => {
+      const duplicatedBlock: ContentBlock = {
+        ...JSON.parse(JSON.stringify(block)),
+        id: generateId(),
+      };
+      setTemplate((prev) => {
+        const newBlocks = [...prev.blocks];
+        newBlocks.splice(position, 0, duplicatedBlock);
+        return {
+          ...prev,
+          blocks: newBlocks,
+          updatedAt: new Date().toISOString(),
+        };
+      });
+    },
+    [],
+  );
 
   const handleMoveBlock = useCallback(
     (dragIndex: number, hoverIndex: number) => {
@@ -243,6 +287,9 @@ export const EmailBuilder: React.FC<EmailBuilderProps> = ({
                       backgroundColor: color,
                     })
                   }
+                  onMoveBlock={handleMoveBlock}
+                  onDuplicateBlock={handleDuplicateBlock}
+                  onDeleteBlock={handleDeleteBlockById}
                 />
 
                 {/* Right Sidebar - Settings Panel */}

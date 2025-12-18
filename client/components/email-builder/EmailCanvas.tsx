@@ -3,19 +3,22 @@ import { useDrop } from "react-dnd";
 import { Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { EmailTemplate, ContentBlock } from "./types";
-import { BlockRenderer } from "./BlockRenderer";
+import { DraggableBlock } from "./DraggableBlock";
 
 interface EmailCanvasProps {
   template: EmailTemplate;
   templateSubject: string;
   selectedBlockId: string | null;
   selectedFooterElement?: string | null;
-  onAddBlock: (block: ContentBlock) => void;
+  onAddBlock: (block: ContentBlock, position?: number) => void;
   onBlockUpdate: (block: ContentBlock) => void;
   onBlockSelect: (id: string) => void;
   onFooterElementSelect?: (element: string | null) => void;
   onTemplateSubjectChange: (subject: string) => void;
   onBackgroundColorChange: (color: string) => void;
+  onMoveBlock: (dragIndex: number, hoverIndex: number) => void;
+  onDuplicateBlock?: (block: ContentBlock, position: number) => void;
+  onDeleteBlock?: (blockId: string) => void;
 }
 
 export const EmailCanvas: React.FC<EmailCanvasProps> = ({
@@ -29,17 +32,20 @@ export const EmailCanvas: React.FC<EmailCanvasProps> = ({
   onFooterElementSelect,
   onTemplateSubjectChange,
   onBackgroundColorChange,
+  onMoveBlock,
+  onDuplicateBlock,
+  onDeleteBlock,
 }) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ["block", "template"],
     drop: (item: any) => {
       if (item.blocks) {
-        // Template dropped - add all blocks
+        // Template dropped - add all blocks at the end
         item.blocks.forEach((block: ContentBlock) => {
           onAddBlock(block);
         });
       } else if (item.block) {
-        // Single block dropped
+        // Single block dropped at the end
         onAddBlock(item.block);
       }
     },
@@ -125,17 +131,26 @@ export const EmailCanvas: React.FC<EmailCanvasProps> = ({
             </div>
           ) : (
             <div className="space-y-0">
-              {template.blocks.map((block) => (
-                <div key={block.id}>
-                  <BlockRenderer
-                    block={block}
-                    isSelected={selectedBlockId === block.id}
-                    selectedFooterElement={selectedFooterElement}
-                    onBlockUpdate={onBlockUpdate}
-                    onBlockSelect={onBlockSelect}
-                    onFooterElementSelect={onFooterElementSelect}
-                  />
-                </div>
+              {template.blocks.map((block, index) => (
+                <DraggableBlock
+                  key={block.id}
+                  block={block}
+                  index={index}
+                  totalBlocks={template.blocks.length}
+                  isSelected={selectedBlockId === block.id}
+                  selectedFooterElement={selectedFooterElement}
+                  onBlockUpdate={onBlockUpdate}
+                  onBlockSelect={onBlockSelect}
+                  onFooterElementSelect={onFooterElementSelect}
+                  onMoveBlock={onMoveBlock}
+                  onAddBlock={(newBlock, position) => {
+                    onAddBlock(newBlock, position);
+                  }}
+                  onDuplicate={(_, position) => {
+                    onDuplicateBlock?.(block, position);
+                  }}
+                  onDelete={(blockId) => onDeleteBlock?.(blockId)}
+                />
               ))}
             </div>
           )}
