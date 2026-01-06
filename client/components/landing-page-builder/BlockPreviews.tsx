@@ -17,7 +17,9 @@ export const HeaderBlockPreview: React.FC<BlockPreviewProps> = ({
   return (
     <div
       onClick={onSelect}
-      className="bg-white border border-gray-200 cursor-pointer hover:bg-gray-50"
+      className={`bg-white border-2 border-gray-200 cursor-pointer transition-all ${
+        isSelected ? "border-valasys-orange" : "hover:border-gray-300"
+      }`}
     >
       <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50">
         <div className="font-bold text-gray-900">{props.logoText}</div>
