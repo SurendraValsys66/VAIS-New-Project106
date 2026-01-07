@@ -34,7 +34,7 @@ interface SectionGroup {
 export const BlocksPanel: React.FC<BlocksPanelProps> = ({ onAddBlock }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
-    new Set(["sections", "components"]),
+    new Set(["start", "blocks", "cms", "elements"]),
   );
 
   const sectionGroups: SectionGroup[] = [
