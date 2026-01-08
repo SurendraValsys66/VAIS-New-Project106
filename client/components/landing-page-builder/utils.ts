@@ -187,6 +187,123 @@ export const createSectionSpacerBlock = (): LandingPageBlock => ({
   },
 });
 
+export const createPricingBlock = (): LandingPageBlock => ({
+  id: `pricing-${Date.now()}`,
+  type: "pricing",
+  properties: {
+    heading: "Pricing",
+    subheading: "Subtitle.",
+    backgroundColor: "#ffffff",
+    pricingTiers: [
+      {
+        id: "tier-1",
+        name: "Starter",
+        price: "$0",
+        description: "Features",
+        features: ["1 User", "5 Projects", "Basic Support"],
+        buttonText: "Sign up",
+        buttonColor: "#f3f4f6",
+        buttonTextColor: "#111827",
+      },
+      {
+        id: "tier-2",
+        name: "Professional",
+        price: "$20",
+        description: "Features",
+        features: ["5 Users", "50 Projects", "Priority Support"],
+        buttonText: "Get In",
+        buttonColor: "#111827",
+        buttonTextColor: "#ffffff",
+        isHighlighted: true,
+      },
+      {
+        id: "tier-3",
+        name: "Enterprise",
+        price: "$40",
+        description: "Features",
+        features: ["Unlimited Users", "Unlimited Projects", "24/7 Support"],
+        buttonText: "Sign up",
+        buttonColor: "#f3f4f6",
+        buttonTextColor: "#111827",
+      },
+    ],
+  },
+});
+
+export const createFaqBlock = (): LandingPageBlock => ({
+  id: `faq-${Date.now()}`,
+  type: "faq",
+  properties: {
+    heading: "Frequently Asked Questions",
+    backgroundColor: "#ffffff",
+    faqs: [
+      {
+        id: "faq-1",
+        question: "How do frames work?",
+        answer: "Frames are containers that help you organize and structure your designs. They work by grouping related elements together.",
+      },
+      {
+        id: "faq-2",
+        question: "How do code pages?",
+        answer: "Code pages allow you to write custom code for advanced functionality. You can add HTML, CSS, and JavaScript.",
+      },
+      {
+        id: "faq-3",
+        question: "How do features work?",
+        answer: "Features are built-in functionalities that you can enable or disable based on your needs.",
+      },
+    ],
+  },
+});
+
+export const createSignupBlock = (): LandingPageBlock => ({
+  id: `signup-${Date.now()}`,
+  type: "signup",
+  properties: {
+    heading: "Stay in the loop.",
+    subheading: "Sign up now.",
+    backgroundColor: "#ffffff",
+    inputPlaceholder: "Enter your email",
+    buttonText: "Sign up",
+    buttonColor: "#111827",
+    buttonTextColor: "#ffffff",
+  },
+});
+
+export const createPricingFooterBlock = (): LandingPageBlock => ({
+  id: `pricing-footer-${Date.now()}`,
+  type: "pricing-footer",
+  properties: {
+    backgroundColor: "#ffffff",
+    columns: [
+      {
+        id: "col-1",
+        title: "Product",
+        links: [
+          { label: "Solutions", href: "#" },
+          { label: "Contacts", href: "#" },
+        ],
+      },
+      {
+        id: "col-2",
+        title: "Resources",
+        links: [
+          { label: "Docs", href: "#" },
+          { label: "Help", href: "#" },
+        ],
+      },
+      {
+        id: "col-3",
+        title: "Company",
+        links: [
+          { label: "Support", href: "#" },
+          { label: "Blog", href: "#" },
+        ],
+      },
+    ],
+  },
+});
+
 // Local storage functions
 export const getLandingPagesFromLocalStorage = (): LandingPage[] => {
   try {
