@@ -43,22 +43,14 @@ export const LandingPageBuilder: React.FC<LandingPageBuilderProps> = ({
         setPageName(foundPage.name);
       }
     } else {
-      // Create a new page with default blocks
+      // Create a new page with no default blocks
       const newPage: LandingPage = {
         id: `lp-${Date.now()}`,
         name: "Untitled Landing Page",
         description: "A new landing page",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        blocks: [
-          createHeaderBlock(),
-          createHeroBlock(),
-          createFeaturesBlock(),
-          createTestimonialsBlock(),
-          createAboutBlock(),
-          createContactFormBlock(),
-          createFooterBlock(),
-        ],
+        blocks: [],
       };
       setPage(newPage);
       setPageName(newPage.name);
