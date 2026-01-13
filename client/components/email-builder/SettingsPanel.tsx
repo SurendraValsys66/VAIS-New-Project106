@@ -5047,7 +5047,7 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
           (card: any) => card.id === selectedCardId,
         );
 
-        const handleCardUpdate = (fieldName: string, value: string) => {
+        const handleCardUpdate = (fieldName: string, value: any) => {
           if (!selectedCard) return;
           const updatedCards = twoColBlock.cards.map((card: any) =>
             card.id === selectedCardId ? { ...card, [fieldName]: value } : card,
@@ -5114,137 +5114,116 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-valasys-orange focus:border-transparent"
                   />
                 </div>
+
+                <div>
+                  <h4 className="text-xs font-bold text-gray-900 mb-3">Styling</h4>
+                  <div className="space-y-3">
+                    <div>
+                      <Label className="text-xs text-gray-700 mb-2 block">
+                        Background Color
+                      </Label>
+                      <div className="flex gap-2">
+                        <input
+                          type="color"
+                          value={selectedCard.backgroundColor}
+                          onChange={(e) =>
+                            handleCardUpdate("backgroundColor", e.target.value)
+                          }
+                          className="w-12 h-10 rounded border border-gray-300 cursor-pointer"
+                        />
+                        <Input
+                          value={selectedCard.backgroundColor}
+                          onChange={(e) =>
+                            handleCardUpdate("backgroundColor", e.target.value)
+                          }
+                          placeholder="#333333"
+                          className="flex-1 text-xs focus:ring-valasys-orange focus:ring-2"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label className="text-xs text-gray-700 mb-2 block">
+                        Text Color
+                      </Label>
+                      <div className="flex gap-2">
+                        <input
+                          type="color"
+                          value={selectedCard.textColor}
+                          onChange={(e) =>
+                            handleCardUpdate("textColor", e.target.value)
+                          }
+                          className="w-12 h-10 rounded border border-gray-300 cursor-pointer"
+                        />
+                        <Input
+                          value={selectedCard.textColor}
+                          onChange={(e) =>
+                            handleCardUpdate("textColor", e.target.value)
+                          }
+                          placeholder="#ffffff"
+                          className="flex-1 text-xs focus:ring-valasys-orange focus:ring-2"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label className="text-xs text-gray-700 mb-1 block">
+                        Border Radius
+                      </Label>
+                      <div className="flex gap-2">
+                        <Input
+                          type="number"
+                          min="0"
+                          max="50"
+                          value={selectedCard.borderRadius}
+                          onChange={(e) =>
+                            handleCardUpdate("borderRadius", parseInt(e.target.value))
+                          }
+                          className="flex-1 focus:ring-valasys-orange focus:ring-2"
+                        />
+                        <span className="px-2 py-1 text-sm text-gray-600">px</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label className="text-xs text-gray-700 mb-1 block">
+                        Padding
+                      </Label>
+                      <div className="flex gap-2">
+                        <Input
+                          type="number"
+                          min="0"
+                          value={selectedCard.padding}
+                          onChange={(e) =>
+                            handleCardUpdate("padding", parseInt(e.target.value))
+                          }
+                          className="flex-1 focus:ring-valasys-orange focus:ring-2"
+                        />
+                        <span className="px-2 py-1 text-sm text-gray-600">px</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label className="text-xs text-gray-700 mb-1 block">
+                        Margin
+                      </Label>
+                      <div className="flex gap-2">
+                        <Input
+                          type="number"
+                          min="0"
+                          value={selectedCard.margin}
+                          onChange={(e) =>
+                            handleCardUpdate("margin", parseInt(e.target.value))
+                          }
+                          className="flex-1 focus:ring-valasys-orange focus:ring-2"
+                        />
+                        <span className="px-2 py-1 text-sm text-gray-600">px</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </>
             )}
-
-            <div>
-              <h4 className="text-xs font-bold text-gray-900 mb-3">Styling</h4>
-              <div className="space-y-3">
-                <div>
-                  <Label className="text-xs text-gray-700 mb-2 block">
-                    Background Color
-                  </Label>
-                  <div className="flex gap-2">
-                    <input
-                      type="color"
-                      value={twoColBlock.backgroundColor}
-                      onChange={(e) =>
-                        onBlockUpdate({
-                          ...twoColBlock,
-                          backgroundColor: e.target.value,
-                        })
-                      }
-                      className="w-12 h-10 rounded border border-gray-300 cursor-pointer"
-                    />
-                    <Input
-                      value={twoColBlock.backgroundColor}
-                      onChange={(e) =>
-                        onBlockUpdate({
-                          ...twoColBlock,
-                          backgroundColor: e.target.value,
-                        })
-                      }
-                      placeholder="#333333"
-                      className="flex-1 text-xs focus:ring-valasys-orange focus:ring-2"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-xs text-gray-700 mb-2 block">
-                    Text Color
-                  </Label>
-                  <div className="flex gap-2">
-                    <input
-                      type="color"
-                      value={twoColBlock.textColor}
-                      onChange={(e) =>
-                        onBlockUpdate({
-                          ...twoColBlock,
-                          textColor: e.target.value,
-                        })
-                      }
-                      className="w-12 h-10 rounded border border-gray-300 cursor-pointer"
-                    />
-                    <Input
-                      value={twoColBlock.textColor}
-                      onChange={(e) =>
-                        onBlockUpdate({
-                          ...twoColBlock,
-                          textColor: e.target.value,
-                        })
-                      }
-                      placeholder="#ffffff"
-                      className="flex-1 text-xs focus:ring-valasys-orange focus:ring-2"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-xs text-gray-700 mb-1 block">
-                    Border Radius
-                  </Label>
-                  <div className="flex gap-2">
-                    <Input
-                      type="number"
-                      min="0"
-                      max="50"
-                      value={twoColBlock.borderRadius}
-                      onChange={(e) =>
-                        onBlockUpdate({
-                          ...twoColBlock,
-                          borderRadius: parseInt(e.target.value),
-                        })
-                      }
-                      className="flex-1 focus:ring-valasys-orange focus:ring-2"
-                    />
-                    <span className="px-2 py-1 text-sm text-gray-600">px</span>
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-xs text-gray-700 mb-1 block">
-                    Padding
-                  </Label>
-                  <div className="flex gap-2">
-                    <Input
-                      type="number"
-                      min="0"
-                      value={twoColBlock.padding}
-                      onChange={(e) =>
-                        onBlockUpdate({
-                          ...twoColBlock,
-                          padding: parseInt(e.target.value),
-                        })
-                      }
-                      className="flex-1 focus:ring-valasys-orange focus:ring-2"
-                    />
-                    <span className="px-2 py-1 text-sm text-gray-600">px</span>
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-xs text-gray-700 mb-1 block">
-                    Margin
-                  </Label>
-                  <div className="flex gap-2">
-                    <Input
-                      type="number"
-                      min="0"
-                      value={twoColBlock.margin}
-                      onChange={(e) =>
-                        onBlockUpdate({
-                          ...twoColBlock,
-                          margin: parseInt(e.target.value),
-                        })
-                      }
-                      className="flex-1 focus:ring-valasys-orange focus:ring-2"
-                    />
-                    <span className="px-2 py-1 text-sm text-gray-600">px</span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         );
       }
