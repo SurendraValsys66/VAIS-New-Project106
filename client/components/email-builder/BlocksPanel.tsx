@@ -33,6 +33,7 @@ import {
   createDividerBlock,
   createProductBlock,
   createNavigationBlock,
+  createHeaderBlock,
   createSpacerBlock,
   createCenteredImageCardBlock,
   createSplitImageCardBlock,
