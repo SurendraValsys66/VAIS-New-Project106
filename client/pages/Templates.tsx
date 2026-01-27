@@ -58,6 +58,17 @@ export default function Templates() {
     setDeleteTargetId(null);
   };
 
+  const handleDownloadTemplate = (template: EmailTemplate) => {
+    const htmlContent = renderTemplateToHTML(template);
+    const element = document.createElement("a");
+    const file = new Blob([htmlContent], { type: "text/html" });
+    element.href = URL.createObjectURL(file);
+    element.download = `${template.name || "template"}.html`;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
   const handleBackToList = () => {
     // Refresh templates from localStorage
     const loaded = getTemplatesFromLocalStorage();
