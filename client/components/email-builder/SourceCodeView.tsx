@@ -42,30 +42,32 @@ export const SourceCodeView: React.FC<SourceCodeViewProps> = ({ template }) => {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleCopy}
-            className="flex flex-col items-center justify-center group p-2 h-auto"
-            title={copied ? "Copied!" : "Copy Code"}
-          >
-            <Copy className="w-4 h-4" />
-            <span className="hidden group-hover:block text-xs mt-1 whitespace-nowrap">
+          <div className="relative group">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleCopy}
+              className="p-2"
+            >
+              <Copy className="w-4 h-4" />
+            </Button>
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs whitespace-nowrap bg-gray-800 text-white rounded hidden group-hover:block">
               {copied ? "Copied!" : "Copy Code"}
             </span>
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleDownload}
-            className="flex flex-col items-center justify-center group p-2 h-auto"
-            title="Download"
-          >
-            <Download className="w-4 h-4" />
-            <span className="hidden group-hover:block text-xs mt-1 whitespace-nowrap">
+          </div>
+          <div className="relative group">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleDownload}
+              className="p-2"
+            >
+              <Download className="w-4 h-4" />
+            </Button>
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs whitespace-nowrap bg-gray-800 text-white rounded hidden group-hover:block">
               Download
             </span>
-          </Button>
+          </div>
         </div>
       </div>
 
