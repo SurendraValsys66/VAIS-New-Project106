@@ -133,9 +133,17 @@ ${htmlContent.substring(htmlContent.indexOf('<div style="max-width:'), htmlConte
                 {copied ? "Copied!" : "Copy Code"}
               </TooltipContent>
             </Tooltip>
-            <Button variant="outline" size="sm" onClick={handleDownloadInlineHTML}>
-              <Download className="w-4 h-4" />
-            </Button>
+            <Tooltip open={openDownloadTooltip} onOpenChange={setOpenDownloadTooltip}>
+              <TooltipTrigger asChild>
+                <Button variant="outline" size="sm" onClick={handleDownloadInlineHTML}>
+                  <Download className="w-4 h-4 mr-2" />
+                  Download Pure HTML
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent className="font-medium" side="top">
+                {downloaded ? "Downloaded!" : "Download"}
+              </TooltipContent>
+            </Tooltip>
           </div>
         </TooltipProvider>
       </div>
