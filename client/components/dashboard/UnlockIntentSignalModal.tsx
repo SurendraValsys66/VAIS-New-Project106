@@ -94,28 +94,57 @@ export default function UnlockIntentSignalModal({
                   className="object-contain"
                 />
               </div>
-              <p className="text-gray-700 mb-4 leading-relaxed">
+              <p className="text-gray-700 mb-6 leading-relaxed">
                 Unlock Bombora intent data signals to access deeper insights
                 into company buying behaviors and decision-making timelines.
               </p>
-              <div className="space-y-3 text-sm text-gray-600">
-                <div className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600 font-semibold text-xs">
-                    ✓
+
+              {/* Included with Intent Signal Section */}
+              <div>
+                <h4 className="text-xs font-semibold text-gray-900 mb-4 uppercase tracking-widest">
+                  Included with Intent Signal
+                </h4>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 flex-shrink-0 text-teal-600">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-700">Real-time intent signals</span>
                   </div>
-                  <span>Enterprise-grade intent intelligence</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600 font-semibold text-xs">
-                    ✓
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 flex-shrink-0 text-teal-600">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-700">Composite scoring breakdown</span>
                   </div>
-                  <span>Real-time buying signals & intent data</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600 font-semibold text-xs">
-                    ✓
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 flex-shrink-0 text-teal-600">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-700">Matched topic analysis</span>
                   </div>
-                  <span>Decision-making timeline insights</span>
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 flex-shrink-0 text-teal-600">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-700">Bombora Intent Delta Count</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 flex-shrink-0 text-teal-600">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm text-gray-700">AI-powered insights</span>
+                  </div>
                 </div>
               </div>
             </div>
