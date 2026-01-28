@@ -48,7 +48,7 @@ export default function UnlockIntentSignalModal({
   onUnlock,
   currentlyClickedBadgeId,
 }: UnlockIntentSignalModalProps) {
-  const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
+  const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set(["current"]));
 
   const handleCheckboxChange = (optionId: string) => {
     const newSelected = new Set(selectedOptions);
