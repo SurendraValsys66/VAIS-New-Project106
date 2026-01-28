@@ -133,21 +133,16 @@ export default function UnlockIntentSignalModal({
                 {unlockOptions.map((option) => (
                   <label
                     key={option.id}
-                    className="flex items-start gap-3 p-4 bg-white rounded-lg border-2 border-gray-200 hover:border-blue-300 cursor-pointer transition-all hover:shadow-md hover:bg-blue-50"
+                    className="flex items-center gap-3 p-4 bg-white rounded-lg border-2 border-gray-200 hover:border-blue-300 cursor-pointer transition-all hover:shadow-md hover:bg-blue-50"
                   >
                     <Checkbox
                       checked={selectedOptions.has(option.id)}
                       onCheckedChange={() => handleCheckboxChange(option.id)}
-                      className="mt-1 flex-shrink-0"
+                      className="flex-shrink-0"
                     />
-                    <div className="flex-1">
-                      <p className="font-semibold text-gray-900 text-sm">
-                        {option.label}
-                      </p>
-                      <p className="text-xs text-gray-600 mt-1">
-                        {option.description}
-                      </p>
-                    </div>
+                    <p className="font-semibold text-gray-900 text-sm">
+                      {option.label}
+                    </p>
                   </label>
                 ))}
               </div>
