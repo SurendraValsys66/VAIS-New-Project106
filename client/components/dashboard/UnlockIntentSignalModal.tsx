@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -12,7 +10,7 @@ import { Zap, Target } from "lucide-react";
 interface UnlockIntentSignalModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onUnlock: (selectedOption: string) => void;
+  onUnlock: (selectedOptions: string[]) => void;
   currentlyClickedBadgeId?: string;
 }
 
@@ -50,73 +48,103 @@ export default function UnlockIntentSignalModal({
   onUnlock,
   currentlyClickedBadgeId,
 }: UnlockIntentSignalModalProps) {
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [selectedOptions, setSelectedOptions] = useState<Set<string>>(new Set());
+
+  const handleCheckboxChange = (optionId: string) => {
+    const newSelected = new Set(selectedOptions);
+    if (newSelected.has(optionId)) {
+      newSelected.delete(optionId);
+    } else {
+      newSelected.add(optionId);
+    }
+    setSelectedOptions(newSelected);
+  };
 
   const handleUnlock = () => {
-    if (selectedOption) {
-      onUnlock(selectedOption);
+    if (selectedOptions.size > 0) {
+      onUnlock(Array.from(selectedOptions));
       onOpenChange(false);
-      setSelectedOption("");
+      setSelectedOptions(new Set());
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-2xl p-0 border-0">
-        <div className="bg-gradient-to-br from-slate-50 to-slate-100">
-          {/* Header Section */}
-          <div className="p-8 border-b border-gray-200">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full">
+      <DialogContent className="sm:max-w-3xl p-0 border-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+          {/* Left Column - Bombora Logo and Introduction */}
+          <div className="bg-gradient-to-br from-slate-50 to-slate-100 p-8 flex flex-col justify-between border-r border-gray-200">
+            <div>
+              {/* Icon before Title */}
+              <div className="p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-4 w-fit">
                 <Zap className="w-6 h-6 text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-900">
+
+              {/* Title and Description */}
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 Unlock Intent Signals
               </h2>
+
+              {/* Bombora Logo */}
+              <div className="mb-8">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F826a3e27b58443589187ad5b7757a718%2F26618173823c471191d805cde87239d2?format=webp&width=800"
+                  alt="Powered by Bombora"
+                  style={{ width: "150px" }}
+                  className="object-contain"
+                />
+              </div>
+              <p className="text-gray-700 mb-4 leading-relaxed">
+                Unlock Bombora intent data signals to access deeper insights
+                into company buying behaviors and decision-making timelines.
+              </p>
+              <div className="space-y-3 text-sm text-gray-600">
+                <div className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600 font-semibold text-xs">
+                    ✓
+                  </div>
+                  <span>Enterprise-grade intent intelligence</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600 font-semibold text-xs">
+                    ✓
+                  </div>
+                  <span>Real-time buying signals & intent data</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600 font-semibold text-xs">
+                    ✓
+                  </div>
+                  <span>Decision-making timeline insights</span>
+                </div>
+              </div>
             </div>
-            <p className="text-gray-600 leading-relaxed">
-              Choose how you'd like to unlock Bombora intent data signals to access deeper insights into company buying behaviors and decision-making timelines.
-            </p>
           </div>
 
-          {/* Bombora Logo Section */}
-          <div className="px-8 py-4 bg-white border-b border-gray-200">
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600 font-medium">
-                Powered by
-              </span>
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F826a3e27b58443589187ad5b7757a718%2F26618173823c471191d805cde87239d2?format=webp&width=800"
-                alt="Powered by Bombora"
-                style={{ width: "120px" }}
-                className="object-contain"
-              />
-            </div>
-          </div>
-
-          {/* Options Section */}
-          <div className="p-8">
-            <div className="mb-6">
+          {/* Right Column - Unlock Options and Actions */}
+          <div className="p-8 flex flex-col justify-between">
+            {/* Options List */}
+            <div className="mb-8">
               <h3 className="text-sm font-semibold text-gray-900 mb-5 uppercase tracking-wider flex items-center gap-2">
                 <Target className="w-4 h-4" />
-                Select unlock option
+                Choose unlock options
               </h3>
               <div className="space-y-3">
                 {unlockOptions.map((option) => (
                   <label
                     key={option.id}
-                    className="flex items-start gap-4 p-4 bg-white rounded-lg border-2 border-gray-200 hover:border-blue-300 cursor-pointer transition-all hover:shadow-md hover:bg-blue-50"
+                    className="flex items-start gap-3 p-4 bg-white rounded-lg border-2 border-gray-200 hover:border-blue-300 cursor-pointer transition-all hover:shadow-md hover:bg-blue-50"
                   >
                     <Checkbox
-                      checked={selectedOption === option.id}
-                      onCheckedChange={() => setSelectedOption(option.id)}
+                      checked={selectedOptions.has(option.id)}
+                      onCheckedChange={() => handleCheckboxChange(option.id)}
                       className="mt-1 flex-shrink-0"
                     />
                     <div className="flex-1">
-                      <p className="font-semibold text-gray-900">
+                      <p className="font-semibold text-gray-900 text-sm">
                         {option.label}
                       </p>
-                      <p className="text-sm text-gray-600 mt-1">
+                      <p className="text-xs text-gray-600 mt-1">
                         {option.description}
                       </p>
                     </div>
@@ -127,8 +155,8 @@ export default function UnlockIntentSignalModal({
 
             {/* Info Message */}
             <div className="p-4 bg-blue-50 border-l-4 border-blue-500 rounded mb-6">
-              <p className="text-sm text-blue-900">
-                <span className="font-semibold">💡 Tip:</span> Each unlock uses 1 credit per company. Choose wisely to maximize your intent signal access.
+              <p className="text-xs text-blue-900">
+                <span className="font-semibold">💡 Tip:</span> Each unlock uses 1 credit per company. You can select multiple options to unlock different signal categories at once.
               </p>
             </div>
 
@@ -137,7 +165,7 @@ export default function UnlockIntentSignalModal({
               <Button
                 onClick={() => {
                   onOpenChange(false);
-                  setSelectedOption("");
+                  setSelectedOptions(new Set());
                 }}
                 variant="outline"
                 className="flex-1 h-11"
@@ -146,11 +174,11 @@ export default function UnlockIntentSignalModal({
               </Button>
               <Button
                 onClick={handleUnlock}
-                disabled={!selectedOption}
+                disabled={selectedOptions.size === 0}
                 className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white h-11 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Zap className="w-4 h-4 mr-2" />
-                Unlock
+                Unlock Selected
               </Button>
             </div>
           </div>
