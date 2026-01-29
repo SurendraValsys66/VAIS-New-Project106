@@ -53,15 +53,11 @@ interface IntentSignalModalProps {
 const chartConfig = {
   compositeScore: {
     label: "Composite Score",
-    color: "hsl(220, 70%, 50%)",
+    color: "#EF4444", // Red/Orange color
   },
   deltaScore: {
     label: "Delta Score",
-    color: "hsl(120, 60%, 50%)",
-  },
-  matchedTopics: {
-    label: "Matched Topics",
-    color: "hsl(280, 70%, 55%)",
+    color: "#6366F1", // Indigo/Blue color
   },
 };
 
