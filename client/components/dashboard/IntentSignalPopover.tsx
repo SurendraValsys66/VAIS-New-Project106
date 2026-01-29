@@ -186,15 +186,16 @@ export default function IntentSignalPopover({
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 overflow-auto p-6 space-y-6">
-            {/* Intent Signal Breakdown Chart */}
-            <div>
-              <h3 className="text-base font-semibold text-gray-900 mb-4 flex items-center space-x-2">
-                <div className="w-1 h-6 bg-valasys-orange rounded-full"></div>
-                <span>Intent Signal Breakdown</span>
-              </h3>
-              <div
-                className="h-64 border border-gray-200 rounded-xl p-4 bg-gradient-to-br from-gray-50 to-white cursor-pointer hover:border-valasys-orange hover:shadow-lg transition-all duration-300"
+          <div className="flex-1 overflow-auto p-5">
+            <div className="space-y-6">
+              {/* Intent Signal Breakdown Chart */}
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center space-x-2">
+                  <div className="w-1 h-5 bg-valasys-orange rounded-full"></div>
+                  <span>Intent Signal Breakdown</span>
+                </h3>
+                <div
+                  className="h-56 border border-gray-200 rounded-lg p-3 bg-gradient-to-br from-gray-50 to-white cursor-pointer hover:border-valasys-orange hover:shadow-md transition-all duration-300 overflow-hidden"
                 onClick={handleChartClick}
               >
                 <ChartContainer config={chartConfig}>
@@ -261,49 +262,50 @@ export default function IntentSignalPopover({
                   </LineChart>
                 </ChartContainer>
               </div>
-              <p className="text-xs text-gray-500 mt-3 text-center hover:text-valasys-orange transition-colors cursor-pointer">
-                Click to view full breakdown →
-              </p>
-            </div>
-
-            {/* Topics Section */}
-            <div>
-              <h3 className="text-base font-semibold text-gray-900 mb-4 flex items-center space-x-2">
-                <div className="w-1 h-6 bg-valasys-orange rounded-full"></div>
-                <span>High Intent Topics</span>
-              </h3>
-              <div className="space-y-3">
-                {data.relatedTopics.slice(0, 3).map((topic, index) => {
-                  const scores = [65, 63, 58];
-                  const score = scores[index] || Math.floor(Math.random() * 40 + 60);
-                  return (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-white border border-gray-200 rounded-xl hover:border-valasys-orange hover:shadow-md transition-all duration-300 group"
-                    >
-                      <div className="flex items-center space-x-3 flex-1">
-                        <div className="w-2 h-2 bg-valasys-orange rounded-full group-hover:scale-125 transition-transform"></div>
-                        <span className="text-sm text-gray-700 font-medium">{topic}</span>
-                      </div>
-                      <Badge className="bg-yellow-100 text-yellow-800 border border-yellow-200 font-semibold">
-                        {score}
-                      </Badge>
-                    </div>
-                  );
-                })}
-              </div>
-              {data.relatedTopics.length > 3 && (
-                <p className="text-xs text-gray-500 mt-4 text-center">
-                  Showing 3 of {data.relatedTopics.length} topics
+                <p className="text-xs text-gray-500 mt-2 text-center hover:text-valasys-orange transition-colors cursor-pointer">
+                  Click to view full breakdown →
                 </p>
-              )}
-            </div>
+              </div>
 
-            {/* Footer Info */}
-            <div className="border-t border-gray-200 pt-4 mt-6">
-              <p className="text-xs text-gray-500 text-center">
-                <span className="text-valasys-orange font-semibold">Tip:</span> Click the chart to view detailed breakdown and trend analysis
-              </p>
+              {/* Topics Section */}
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900 mb-3 flex items-center space-x-2">
+                  <div className="w-1 h-5 bg-valasys-orange rounded-full"></div>
+                  <span>High Intent Topics</span>
+                </h3>
+                <div className="space-y-3">
+                  {data.relatedTopics.slice(0, 3).map((topic, index) => {
+                    const scores = [65, 63, 58];
+                    const score = scores[index] || Math.floor(Math.random() * 40 + 60);
+                    return (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-3 bg-gradient-to-r from-gray-50 to-white border border-gray-200 rounded-lg hover:border-valasys-orange hover:shadow-md transition-all duration-300 group"
+                      >
+                        <div className="flex items-center space-x-3 flex-1">
+                          <div className="w-2 h-2 bg-valasys-orange rounded-full group-hover:scale-125 transition-transform"></div>
+                          <span className="text-sm text-gray-700 font-medium">{topic}</span>
+                        </div>
+                        <Badge className="bg-yellow-100 text-yellow-800 border border-yellow-200 font-semibold text-xs">
+                          {score}
+                        </Badge>
+                      </div>
+                    );
+                  })}
+                </div>
+                {data.relatedTopics.length > 3 && (
+                  <p className="text-xs text-gray-500 mt-3 text-center">
+                    Showing 3 of {data.relatedTopics.length} topics
+                  </p>
+                )}
+              </div>
+
+              {/* Footer Info */}
+              <div className="border-t border-gray-200 pt-4">
+                <p className="text-xs text-gray-500 text-center">
+                  <span className="text-valasys-orange font-semibold">Tip:</span> Click the chart to view detailed breakdown
+                </p>
+              </div>
             </div>
           </div>
         </div>
