@@ -132,25 +132,26 @@ export default function IntentSignalPopover({
             isPanelOpen ? "translate-x-0" : "translate-x-full",
           )}
         >
-          {/* Header with Gradient */}
-          <div className="bg-gradient-to-r from-valasys-orange to-orange-500 text-white sticky top-0 z-10 border-b border-orange-600">
-            <div className="p-5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3 flex-1 min-w-0">
-                  <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm flex-shrink-0">
-                    <Building2 className="w-5 h-5 text-white" />
+          {/* Header with Modern Design */}
+          <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white sticky top-0 z-10 border-b border-slate-700">
+            <div className="p-6">
+              {/* Company Header */}
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-start space-x-4 flex-1 min-w-0">
+                  <div className="w-12 h-12 bg-gradient-to-br from-valasys-orange to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <Building2 className="w-6 h-6 text-white" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h2 className="text-lg font-bold truncate">
+                  <div className="flex-1 min-w-0 pt-1">
+                    <h2 className="text-xl font-bold truncate">
                       {data.companyName}
                     </h2>
-                    <p className="text-xs opacity-85">Intent Signal Analysis</p>
+                    <p className="text-sm text-slate-400 mt-0.5">Intent Signal Analysis</p>
                   </div>
                 </div>
                 <div className="ml-3 flex items-center space-x-2 flex-shrink-0">
                   <Badge
                     className={cn(
-                      "text-xs px-2 py-1 font-medium whitespace-nowrap",
+                      "text-xs px-3 py-1.5 font-semibold whitespace-nowrap",
                       getIntentSignalColor(data.intentSignal),
                     )}
                   >
@@ -158,30 +159,52 @@ export default function IntentSignalPopover({
                   </Badge>
                   <button
                     onClick={closePanelClick}
-                    className="w-8 h-8 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors backdrop-blur-sm flex-shrink-0"
+                    className="w-9 h-9 bg-slate-700 hover:bg-slate-600 rounded-lg flex items-center justify-center transition-colors flex-shrink-0"
                   >
-                    <X className="w-4 h-4 text-white" />
+                    <X className="w-4 h-4 text-slate-300" />
                   </button>
                 </div>
               </div>
 
-              {/* Quick Stats in Header */}
-              <div className="grid grid-cols-3 gap-2 mt-4">
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2.5 text-center">
-                  <div className="text-xs opacity-85 mb-0.5">VAIS</div>
-                  <div className="text-sm font-bold">{data.vais}%</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2.5 text-center">
-                  <div className="text-xs opacity-85 mb-0.5">Revenue</div>
-                  <div className="text-xs font-semibold truncate">
-                    {data.revenue}
+              {/* Enhanced Stats Cards */}
+              <div className="grid grid-cols-3 gap-3">
+                {/* VAIS Stat */}
+                <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/10 backdrop-blur-sm rounded-xl p-3.5 border border-blue-400/30">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="text-xs font-semibold text-slate-300 uppercase tracking-wide">VAIS Score</div>
+                    <div className="flex items-center space-x-1 text-emerald-400">
+                      <TrendingUp className="w-3.5 h-3.5" />
+                      <span className="text-xs font-semibold">+12%</span>
+                    </div>
                   </div>
+                  <div className="text-2xl font-bold text-white">{data.vais}%</div>
+                  <p className="text-xs text-slate-400 mt-1">vs. 3 weeks ago</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2.5 text-center">
-                  <div className="text-xs opacity-85 mb-0.5">Location</div>
-                  <div className="text-xs font-semibold truncate">
-                    {data.city}
+
+                {/* Revenue Stat */}
+                <div className="bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 backdrop-blur-sm rounded-xl p-3.5 border border-emerald-400/30">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="text-xs font-semibold text-slate-300 uppercase tracking-wide">Revenue</div>
+                    <div className="flex items-center space-x-1 text-emerald-400">
+                      <Zap className="w-3.5 h-3.5" />
+                      <span className="text-xs font-semibold">+8%</span>
+                    </div>
                   </div>
+                  <div className="text-lg font-bold text-white truncate">{data.revenue}</div>
+                  <p className="text-xs text-slate-400 mt-1">ARR Potential</p>
+                </div>
+
+                {/* Location/Momentum Stat */}
+                <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/10 backdrop-blur-sm rounded-xl p-3.5 border border-purple-400/30">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="text-xs font-semibold text-slate-300 uppercase tracking-wide">Momentum</div>
+                    <div className="flex items-center space-x-1 text-yellow-400">
+                      <Spark className="w-3.5 h-3.5" />
+                      <span className="text-xs font-semibold">High</span>
+                    </div>
+                  </div>
+                  <div className="text-sm font-bold text-white truncate">{data.city}</div>
+                  <p className="text-xs text-slate-400 mt-1">Strong Growth</p>
                 </div>
               </div>
             </div>
