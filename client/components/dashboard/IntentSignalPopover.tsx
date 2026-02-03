@@ -44,6 +44,8 @@ interface IntentSignalData {
 interface IntentSignalPopoverProps {
   data: IntentSignalData;
   children: React.ReactNode;
+  itemId?: string;
+  onAddToList?: (itemId: string) => void;
 }
 
 const chartConfig = {
