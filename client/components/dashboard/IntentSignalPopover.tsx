@@ -515,6 +515,7 @@ export default function IntentSignalPopover({
                 <h3 className="text-sm font-bold text-gray-900 mb-2.5 flex items-center space-x-2">
                   <div className="w-1 h-4 bg-gradient-to-b from-valasys-orange to-orange-500 rounded-full"></div>
                   <span>Top Topics</span>
+                  <span className="text-xs font-normal text-gray-500">(Click to view specific intent trend)</span>
                 </h3>
                 <div className="space-y-1.5">
                   {data.relatedTopics.slice(0, 3).map((topic, index) => {
@@ -522,19 +523,40 @@ export default function IntentSignalPopover({
                     const score =
                       scores[index] || Math.floor(Math.random() * 40 + 60);
                     const growthTrends = ["+24%", "+18%", "+12%"];
+                    const isSelected = selectedTopic === topic;
                     return (
                       <div
                         key={index}
-                        className="flex items-center justify-between p-2.5 bg-gray-50 border border-gray-200 rounded-lg hover:border-valasys-orange hover:bg-orange-50 transition-all duration-300 group"
+                        onClick={() => setSelectedTopic(isSelected ? undefined : topic)}
+                        className={cn(
+                          "flex items-center justify-between p-2.5 border rounded-lg transition-all duration-300 group cursor-pointer",
+                          isSelected
+                            ? "bg-orange-50 border-valasys-orange bg-gradient-to-r from-orange-50 to-orange-100 shadow-md"
+                            : "bg-gray-50 border-gray-200 hover:border-valasys-orange hover:bg-orange-50"
+                        )}
                       >
                         <div className="flex items-center space-x-2 flex-1 min-w-0">
-                          <div className="w-1.5 h-1.5 bg-valasys-orange rounded-full flex-shrink-0"></div>
-                          <span className="text-xs font-medium text-gray-700 truncate">
+                          <div className={cn(
+                            "w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all",
+                            isSelected ? "bg-valasys-orange w-2 h-2" : "bg-valasys-orange"
+                          )}></div>
+                          <span className={cn(
+                            "text-xs font-medium truncate transition-colors",
+                            isSelected ? "text-valasys-orange font-semibold" : "text-gray-700"
+                          )}>
                             {topic}
                           </span>
+                          {isSelected && (
+                            <span className="text-xs text-valasys-orange ml-1">✓</span>
+                          )}
                         </div>
                         <div className="flex items-center space-x-2 flex-shrink-0 ml-2">
-                          <Badge className="bg-yellow-100 text-yellow-800 border border-yellow-200 font-semibold text-xs px-2">
+                          <Badge className={cn(
+                            "font-semibold text-xs px-2 transition-colors",
+                            isSelected
+                              ? "bg-valasys-orange text-white border border-valasys-orange"
+                              : "bg-yellow-100 text-yellow-800 border border-yellow-200"
+                          )}>
                             {score}
                           </Badge>
                           <span className="text-xs font-semibold text-emerald-600 w-10 text-right">
