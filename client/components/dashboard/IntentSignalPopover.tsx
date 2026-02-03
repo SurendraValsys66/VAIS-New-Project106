@@ -371,7 +371,7 @@ export default function IntentSignalPopover({
                         Composite Score
                       </p>
                       <p className="text-xs font-bold text-gray-900">
-                        ↑ 42%
+                        ↑ 42% week-over-week
                       </p>
                     </div>
                     <div className="w-px h-6 bg-gray-300"></div>
@@ -380,7 +380,7 @@ export default function IntentSignalPopover({
                         Delta Score
                       </p>
                       <p className="text-xs font-bold text-gray-900">
-                        ↑ 18%
+                        ↑ 18% week-over-week
                       </p>
                     </div>
                   </div>
