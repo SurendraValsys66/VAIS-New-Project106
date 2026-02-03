@@ -178,6 +178,27 @@ export default function IntentSignalPopover({
                   >
                     {data.intentSignal}
                   </Badge>
+                  {itemId && onAddToList && (
+                    <button
+                      onClick={() => {
+                        onAddToList(itemId);
+                        setIsAdded(true);
+                      }}
+                      className={cn(
+                        "w-9 h-9 rounded-lg flex items-center justify-center transition-colors flex-shrink-0",
+                        isAdded
+                          ? "bg-emerald-600 hover:bg-emerald-700"
+                          : "bg-slate-700 hover:bg-slate-600"
+                      )}
+                      title={isAdded ? "Added to list" : "Add to list"}
+                    >
+                      {isAdded ? (
+                        <Check className="w-4 h-4 text-white" />
+                      ) : (
+                        <Plus className="w-4 h-4 text-slate-300" />
+                      )}
+                    </button>
+                  )}
                   <button
                     onClick={closePanelClick}
                     className="w-9 h-9 bg-slate-700 hover:bg-slate-600 rounded-lg flex items-center justify-center transition-colors flex-shrink-0"
