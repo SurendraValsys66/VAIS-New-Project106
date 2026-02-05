@@ -619,13 +619,13 @@ export default function Login() {
             </div>
 
             {/* Trust Badges - Inline */}
-            <div className="flex items-center gap-4 pt-2 text-xs">
-              <div className="flex items-center gap-1">
-                <CheckCircle className="h-3 w-3 text-valasys-green flex-shrink-0" />
+            <div className="flex items-center gap-3 pt-1 text-xs">
+              <div className="flex items-center gap-0.5">
+                <CheckCircle className="h-2.5 w-2.5 text-valasys-green flex-shrink-0" />
                 <span className="text-valasys-gray-700 font-medium text-xs">SOC 2</span>
               </div>
-              <div className="flex items-center gap-1">
-                <Shield className="h-3 w-3 text-valasys-blue flex-shrink-0" />
+              <div className="flex items-center gap-0.5">
+                <Shield className="h-2.5 w-2.5 text-valasys-blue flex-shrink-0" />
                 <span className="text-valasys-gray-700 font-medium text-xs">GDPR</span>
               </div>
             </div>
