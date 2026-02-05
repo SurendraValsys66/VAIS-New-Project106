@@ -402,7 +402,7 @@ export default function Login() {
                 <div className="space-y-1.5">
                   <Label
                     htmlFor="email"
-                    className="text-valasys-gray-700 flex items-center space-x-1"
+                    className="text-valasys-gray-700 flex items-center space-x-1 text-sm"
                   >
                     <Mail className="h-3 w-3" />
                     <span>Email Address</span>
@@ -429,7 +429,7 @@ export default function Login() {
                 <div className="space-y-1.5">
                   <Label
                     htmlFor="password"
-                    className="text-valasys-gray-700 flex items-center space-x-1"
+                    className="text-valasys-gray-700 flex items-center space-x-1 text-sm"
                   >
                     <Lock className="h-3 w-3" />
                     <span>Password</span>
