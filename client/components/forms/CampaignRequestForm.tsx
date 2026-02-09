@@ -691,41 +691,38 @@ function DeliverablesDialog({
           </div>
 
 
-          {/* Timeline & Next Steps */}
-          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200 space-y-3">
-            <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-              <Info className="w-4 h-4" />
+          {/* Important Information */}
+          <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg p-5 border border-amber-200">
+            <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2 text-lg">
+              <Info className="w-5 h-5 text-amber-600" />
               Important Information
             </h3>
-            <ul className="space-y-2 text-sm text-gray-700">
-              <li className="flex gap-2">
-                <ChevronRight className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                <span>
-                  Deliverables will be available within 24-48 hours after
-                  campaign submission
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="flex gap-3 bg-white rounded-lg p-3 border border-amber-100">
+                <ChevronRight className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700">
+                  Deliverables will be available within 24-48 hours after campaign submission
                 </span>
-              </li>
-              <li className="flex gap-2">
-                <ChevronRight className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                <span>
-                  These are estimated counts based on current database. Final
-                  numbers may vary slightly
+              </div>
+              <div className="flex gap-3 bg-white rounded-lg p-3 border border-amber-100">
+                <ChevronRight className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700">
+                  These are estimated counts based on current database. Final numbers may vary slightly
                 </span>
-              </li>
-              <li className="flex gap-2">
-                <ChevronRight className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                <span>
+              </div>
+              <div className="flex gap-3 bg-white rounded-lg p-3 border border-amber-100">
+                <ChevronRight className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700">
                   You can export the deliverables in CSV, Excel, or JSON format
                 </span>
-              </li>
-              <li className="flex gap-2">
-                <ChevronRight className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
-                <span>
-                  All deliverables include verified contact information and
-                  professional background
+              </div>
+              <div className="flex gap-3 bg-white rounded-lg p-3 border border-amber-100">
+                <ChevronRight className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700">
+                  All deliverables include verified contact information and professional background
                 </span>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
 
         </div>
