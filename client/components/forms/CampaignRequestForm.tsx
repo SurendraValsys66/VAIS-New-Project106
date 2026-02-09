@@ -510,7 +510,7 @@ function DeliverablesDialog({
 
         <div className="space-y-6 py-4">
           {/* Key Metrics Section */}
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-5 gap-3">
             <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-4 border border-orange-200">
               <div className="flex items-center gap-2 mb-2">
                 <Users className="w-4 h-4 text-orange-600" />
@@ -518,50 +518,33 @@ function DeliverablesDialog({
                   Total Prospects
                 </span>
               </div>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-xl font-bold text-gray-900">
                 {totalDeliverables.toLocaleString()}
               </p>
-              <p className="text-xs text-gray-600 mt-1">Qualified Contacts</p>
+              <p className="text-xs text-gray-600 mt-1">All Regions</p>
             </div>
 
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
-              <div className="flex items-center gap-2 mb-2">
-                <Globe className="w-4 h-4 text-blue-600" />
-                <span className="text-xs text-gray-600 font-medium">
-                  Coverage
-                </span>
-              </div>
-              <p className="text-2xl font-bold text-gray-900">
-                {coveragePercentage.toFixed(0)}%
-              </p>
-              <p className="text-xs text-gray-600 mt-1">Database Match</p>
-            </div>
+            {Object.entries(regionDeliverables).map(([region, count]) => {
+              const info = regionInfo[region];
+              const colorClass = info.color.replace('text-', 'text-');
+              const bgColorClass = info.bgColor;
+              const borderColorClass = info.borderColor;
 
-            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
-              <div className="flex items-center gap-2 mb-2">
-                <Target className="w-4 h-4 text-green-600" />
-                <span className="text-xs text-gray-600 font-medium">
-                  Est. Reach
-                </span>
-              </div>
-              <p className="text-2xl font-bold text-gray-900">
-                {estimatedReach.toLocaleString()}
-              </p>
-              <p className="text-xs text-gray-600 mt-1">Contacts Reachable</p>
-            </div>
-
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
-              <div className="flex items-center gap-2 mb-2">
-                <Briefcase className="w-4 h-4 text-purple-600" />
-                <span className="text-xs text-gray-600 font-medium">
-                  Est. Engagement
-                </span>
-              </div>
-              <p className="text-2xl font-bold text-gray-900">
-                {estimatedEngagement.toLocaleString()}
-              </p>
-              <p className="text-xs text-gray-600 mt-1">Potential Responses</p>
-            </div>
+              return (
+                <div key={region} className={`${bgColorClass} border ${borderColorClass} rounded-lg p-4`}>
+                  <div className="flex items-center gap-1 mb-2">
+                    <Globe className={`w-3 h-3 ${info.color}`} />
+                    <span className={`text-xs font-bold ${info.color}`}>
+                      {region}
+                    </span>
+                  </div>
+                  <p className={`text-lg font-bold ${info.color}`}>
+                    {count.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-gray-600 mt-1">{info.description}</p>
+                </div>
+              );
+            })}
           </div>
 
           {/* Campaign Details */}
@@ -687,71 +670,73 @@ function DeliverablesDialog({
           </div>
 
           {/* Selected Criteria Details */}
-          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 space-y-3">
-            <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Briefcase className="w-4 h-4" />
               Selected Criteria Details
             </h3>
 
-            {jobTitles.length > 0 && (
-              <div>
-                <p className="text-xs font-medium text-gray-700 mb-2">
-                  Job Titles ({jobTitles.length})
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {jobTitles.map((title) => (
-                    <Badge key={title} variant="outline" className="text-xs">
-                      {title}
-                    </Badge>
-                  ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {jobTitles.length > 0 && (
+                <div className="bg-white rounded-lg p-3 border border-gray-200">
+                  <p className="text-xs font-bold text-gray-900 mb-2 uppercase tracking-wide">
+                    Job Titles ({jobTitles.length})
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {jobTitles.map((title) => (
+                      <Badge key={title} variant="secondary" className="text-xs">
+                        {title}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {jobFunctions.length > 0 && (
-              <div>
-                <p className="text-xs font-medium text-gray-700 mb-2">
-                  Job Functions ({jobFunctions.length})
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {jobFunctions.map((func) => (
-                    <Badge key={func} variant="outline" className="text-xs">
-                      {func}
-                    </Badge>
-                  ))}
+              {jobFunctions.length > 0 && (
+                <div className="bg-white rounded-lg p-3 border border-gray-200">
+                  <p className="text-xs font-bold text-gray-900 mb-2 uppercase tracking-wide">
+                    Job Functions ({jobFunctions.length})
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {jobFunctions.map((func) => (
+                      <Badge key={func} variant="secondary" className="text-xs">
+                        {func}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {industries.length > 0 && (
-              <div>
-                <p className="text-xs font-medium text-gray-700 mb-2">
-                  Industries ({industries.length})
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {industries.map((industry) => (
-                    <Badge key={industry} variant="outline" className="text-xs">
-                      {industry}
-                    </Badge>
-                  ))}
+              {industries.length > 0 && (
+                <div className="bg-white rounded-lg p-3 border border-gray-200">
+                  <p className="text-xs font-bold text-gray-900 mb-2 uppercase tracking-wide">
+                    Industries ({industries.length})
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {industries.map((industry) => (
+                      <Badge key={industry} variant="secondary" className="text-xs">
+                        {industry}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {geolocations.length > 0 && (
-              <div>
-                <p className="text-xs font-medium text-gray-700 mb-2">
-                  Geographies ({geolocations.length})
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {geolocations.map((geo) => (
-                    <Badge key={geo} variant="outline" className="text-xs">
-                      {geo}
-                    </Badge>
-                  ))}
+              {geolocations.length > 0 && (
+                <div className="bg-white rounded-lg p-3 border border-gray-200">
+                  <p className="text-xs font-bold text-gray-900 mb-2 uppercase tracking-wide">
+                    Geographies ({geolocations.length})
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {geolocations.map((geo) => (
+                      <Badge key={geo} variant="secondary" className="text-xs">
+                        {geo}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
 
           {/* Timeline & Next Steps */}
@@ -791,24 +776,6 @@ function DeliverablesDialog({
             </ul>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-3 pt-4 border-t border-gray-200">
-            <Button
-              type="button"
-              variant="outline"
-              className="flex-1"
-              onClick={() => setOpen(false)}
-            >
-              Close
-            </Button>
-            <Button
-              type="button"
-              className="flex-1 bg-orange-500 hover:bg-orange-600 text-white flex items-center justify-center gap-2"
-            >
-              <Download className="w-4 h-4" />
-              Export Report
-            </Button>
-          </div>
         </div>
       </DialogContent>
     </Dialog>
