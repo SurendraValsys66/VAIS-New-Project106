@@ -57,12 +57,7 @@ import {
   DialogDescription,
   DialogClose,
 } from "@/components/ui/dialog";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
 // Form validation schema
@@ -350,7 +345,12 @@ function FileUpload({ onFileChange, file }: FileUploadProps) {
             .csv, .xlsx, .xls — max 3 MB
           </p>
           <label htmlFor="file-upload">
-            <Button type="button" variant="outline" asChild className="text-orange-500 border-orange-500">
+            <Button
+              type="button"
+              variant="outline"
+              asChild
+              className="text-orange-500 border-orange-500"
+            >
               <span className="cursor-pointer">Choose File</span>
             </Button>
           </label>
@@ -465,7 +465,7 @@ function DeliverablesDialog({
     const region = regionMap[geo] || "MENA";
     const baseCount = Math.max(
       jobTitles.length * jobFunctions.length * (industries.length || 1) * 15,
-      150
+      150,
     );
     regionDeliverables[region] += baseCount + Math.floor(Math.random() * 200);
     regionBreakdown[region].push(geo);
@@ -482,18 +482,28 @@ function DeliverablesDialog({
 
   const totalDeliverables = Object.values(regionDeliverables).reduce(
     (a, b) => a + b,
-    0
+    0,
   );
 
   // Generate Database Reach data by Job Level
-  const jobLevelList = ["C-Level", "Vice President", "Director", "Manager", "Staff"];
+  const jobLevelList = [
+    "C-Level",
+    "Vice President",
+    "Director",
+    "Manager",
+    "Staff",
+  ];
   const generateJobLevelData = () => {
     const data: { [key: string]: { [key: string]: number } } = {};
 
     jobLevelList.forEach((level) => {
       data[level] = {
-        [geolocations[0] || "Geo1"]: Math.floor(Math.random() * 50) + (geolocations.includes(geolocations[0]) ? 50 : 0),
-        [geolocations[1] || "Geo2"]: Math.floor(Math.random() * 50) + (geolocations.includes(geolocations[1]) ? 50 : 0),
+        [geolocations[0] || "Geo1"]:
+          Math.floor(Math.random() * 50) +
+          (geolocations.includes(geolocations[0]) ? 50 : 0),
+        [geolocations[1] || "Geo2"]:
+          Math.floor(Math.random() * 50) +
+          (geolocations.includes(geolocations[1]) ? 50 : 0),
       };
     });
 
@@ -503,18 +513,37 @@ function DeliverablesDialog({
   const jobLevelData = generateJobLevelData();
 
   // Calculate Job Level total count
-  const jobLevelTotal = jobLevelList.reduce((sum, level) => sum + ((jobLevelData[level]?.[geolocations[0] || "Geo1"] || 0) + (jobLevelData[level]?.[geolocations[1] || "Geo2"] || 0)), 0);
+  const jobLevelTotal = jobLevelList.reduce(
+    (sum, level) =>
+      sum +
+      ((jobLevelData[level]?.[geolocations[0] || "Geo1"] || 0) +
+        (jobLevelData[level]?.[geolocations[1] || "Geo2"] || 0)),
+    0,
+  );
 
   // Generate Database Reach data by Employee Size
-  const employeeSizeList = ["1-10", "11-50", "51-200", "201-500", "501-1000", "1001-5000", "5001-10,000", "10,000+"];
+  const employeeSizeList = [
+    "1-10",
+    "11-50",
+    "51-200",
+    "201-500",
+    "501-1000",
+    "1001-5000",
+    "5001-10,000",
+    "10,000+",
+  ];
   const generateEmployeeSizeData = () => {
     const data: { [key: string]: { [key: string]: number } } = {};
 
     employeeSizeList.forEach((size) => {
       const isSelectedSize = size === employeeSize;
       data[size] = {
-        [geolocations[0] || "Geo1"]: isSelectedSize ? Math.floor(Math.random() * 200) + 100 : 0,
-        [geolocations[1] || "Geo2"]: isSelectedSize ? Math.floor(Math.random() * 200) + 100 : 0,
+        [geolocations[0] || "Geo1"]: isSelectedSize
+          ? Math.floor(Math.random() * 200) + 100
+          : 0,
+        [geolocations[1] || "Geo2"]: isSelectedSize
+          ? Math.floor(Math.random() * 200) + 100
+          : 0,
       };
     });
 
@@ -524,7 +553,13 @@ function DeliverablesDialog({
   const employeeSizeData = generateEmployeeSizeData();
 
   // Calculate Employee Size total count
-  const employeeSizeTotal = employeeSizeList.reduce((sum, size) => sum + ((employeeSizeData[size]?.[geolocations[0] || "Geo1"] || 0) + (employeeSizeData[size]?.[geolocations[1] || "Geo2"] || 0)), 0);
+  const employeeSizeTotal = employeeSizeList.reduce(
+    (sum, size) =>
+      sum +
+      ((employeeSizeData[size]?.[geolocations[0] || "Geo1"] || 0) +
+        (employeeSizeData[size]?.[geolocations[1] || "Geo2"] || 0)),
+    0,
+  );
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -543,7 +578,8 @@ function DeliverablesDialog({
             Deliverables Overview
           </DialogTitle>
           <DialogDescription className="text-base mt-1">
-            {campaignName || "Your Campaign"} - Database Reach Analysis & Campaign Summary
+            {campaignName || "Your Campaign"} - Database Reach Analysis &
+            Campaign Summary
           </DialogDescription>
         </DialogHeader>
 
@@ -551,51 +587,109 @@ function DeliverablesDialog({
           {/* Database Reach Tabs */}
           <Tabs defaultValue="job-level" className="w-full">
             <TabsList className="grid w-full grid-cols-2 bg-gray-100 p-1 rounded-lg">
-              <TabsTrigger value="job-level" className="text-sm font-medium">Job Level (Total count {jobLevelTotal})</TabsTrigger>
-              <TabsTrigger value="employee-size" className="text-sm font-medium">Employee Size (Total count {employeeSizeTotal})</TabsTrigger>
+              <TabsTrigger value="job-level" className="text-sm font-medium">
+                Job Level (Total count {jobLevelTotal})
+              </TabsTrigger>
+              <TabsTrigger
+                value="employee-size"
+                className="text-sm font-medium"
+              >
+                Employee Size (Total count {employeeSizeTotal})
+              </TabsTrigger>
             </TabsList>
 
             {/* Job Level Tab */}
             <TabsContent value="job-level" className="mt-4">
               <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
                 <div className="bg-gradient-to-r from-blue-50 to-blue-100 px-6 py-4 border-b border-gray-200">
-                  <h4 className="text-sm font-bold text-gray-900">Database Reach by Job Level</h4>
-                  <p className="text-xs text-gray-600 mt-1">Prospect counts distributed across selected geographies</p>
+                  <h4 className="text-sm font-bold text-gray-900">
+                    Database Reach by Job Level
+                  </h4>
+                  <p className="text-xs text-gray-600 mt-1">
+                    Prospect counts distributed across selected geographies
+                  </p>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
                       <tr className="border-b border-gray-200">
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 bg-gray-50">Job Level</th>
-                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-gray-50">{geolocations[0] || "Geography 1"}</th>
-                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-gray-50">{geolocations[1] || "Geography 2"}</th>
-                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-blue-50 font-bold">Total</th>
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 bg-gray-50">
+                          Job Level
+                        </th>
+                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-gray-50">
+                          {geolocations[0] || "Geography 1"}
+                        </th>
+                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-gray-50">
+                          {geolocations[1] || "Geography 2"}
+                        </th>
+                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-blue-50 font-bold">
+                          Total
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {jobLevelList.map((level, index) => {
-                        const geo1 = jobLevelData[level]?.[geolocations[0] || "Geo1"] || 0;
-                        const geo2 = jobLevelData[level]?.[geolocations[1] || "Geo2"] || 0;
+                        const geo1 =
+                          jobLevelData[level]?.[geolocations[0] || "Geo1"] || 0;
+                        const geo2 =
+                          jobLevelData[level]?.[geolocations[1] || "Geo2"] || 0;
                         const total = geo1 + geo2;
                         return (
-                          <tr key={level} className={`border-b border-gray-100 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50 transition-colors`}>
-                            <td className="px-6 py-3 text-sm font-medium text-gray-900">{level}</td>
-                            <td className="px-6 py-3 text-sm text-center text-gray-600">{geo1}</td>
-                            <td className="px-6 py-3 text-sm text-center text-gray-600">{geo2}</td>
-                            <td className="px-6 py-3 text-sm text-center font-bold text-blue-600">{total}</td>
+                          <tr
+                            key={level}
+                            className={`border-b border-gray-100 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"} hover:bg-blue-50 transition-colors`}
+                          >
+                            <td className="px-6 py-3 text-sm font-medium text-gray-900">
+                              {level}
+                            </td>
+                            <td className="px-6 py-3 text-sm text-center text-gray-600">
+                              {geo1}
+                            </td>
+                            <td className="px-6 py-3 text-sm text-center text-gray-600">
+                              {geo2}
+                            </td>
+                            <td className="px-6 py-3 text-sm text-center font-bold text-blue-600">
+                              {total}
+                            </td>
                           </tr>
                         );
                       })}
                       <tr className="bg-gradient-to-r from-blue-100 to-blue-50 border-t-2 border-blue-200 font-bold">
-                        <td className="px-6 py-3 text-sm text-gray-900">Total</td>
-                        <td className="px-6 py-3 text-sm text-center text-gray-900">
-                          {jobLevelList.reduce((sum, level) => sum + (jobLevelData[level]?.[geolocations[0] || "Geo1"] || 0), 0)}
+                        <td className="px-6 py-3 text-sm text-gray-900">
+                          Total
                         </td>
                         <td className="px-6 py-3 text-sm text-center text-gray-900">
-                          {jobLevelList.reduce((sum, level) => sum + (jobLevelData[level]?.[geolocations[1] || "Geo2"] || 0), 0)}
+                          {jobLevelList.reduce(
+                            (sum, level) =>
+                              sum +
+                              (jobLevelData[level]?.[
+                                geolocations[0] || "Geo1"
+                              ] || 0),
+                            0,
+                          )}
+                        </td>
+                        <td className="px-6 py-3 text-sm text-center text-gray-900">
+                          {jobLevelList.reduce(
+                            (sum, level) =>
+                              sum +
+                              (jobLevelData[level]?.[
+                                geolocations[1] || "Geo2"
+                              ] || 0),
+                            0,
+                          )}
                         </td>
                         <td className="px-6 py-3 text-sm text-center text-blue-700">
-                          {jobLevelList.reduce((sum, level) => sum + ((jobLevelData[level]?.[geolocations[0] || "Geo1"] || 0) + (jobLevelData[level]?.[geolocations[1] || "Geo2"] || 0)), 0)}
+                          {jobLevelList.reduce(
+                            (sum, level) =>
+                              sum +
+                              ((jobLevelData[level]?.[
+                                geolocations[0] || "Geo1"
+                              ] || 0) +
+                                (jobLevelData[level]?.[
+                                  geolocations[1] || "Geo2"
+                                ] || 0)),
+                            0,
+                          )}
                         </td>
                       </tr>
                     </tbody>
@@ -608,43 +702,96 @@ function DeliverablesDialog({
             <TabsContent value="employee-size" className="mt-4">
               <div className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm">
                 <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 px-6 py-4 border-b border-gray-200">
-                  <h4 className="text-sm font-bold text-gray-900">Database Reach by Employee Size</h4>
-                  <p className="text-xs text-gray-600 mt-1">Prospect counts by company size across selected geographies</p>
+                  <h4 className="text-sm font-bold text-gray-900">
+                    Database Reach by Employee Size
+                  </h4>
+                  <p className="text-xs text-gray-600 mt-1">
+                    Prospect counts by company size across selected geographies
+                  </p>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
                       <tr className="border-b border-gray-200">
-                        <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 bg-gray-50">Employee Size</th>
-                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-gray-50">{geolocations[0] || "Geography 1"}</th>
-                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-gray-50">{geolocations[1] || "Geography 2"}</th>
-                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-emerald-50 font-bold">Total</th>
+                        <th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 bg-gray-50">
+                          Employee Size
+                        </th>
+                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-gray-50">
+                          {geolocations[0] || "Geography 1"}
+                        </th>
+                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-gray-50">
+                          {geolocations[1] || "Geography 2"}
+                        </th>
+                        <th className="px-6 py-3 text-center text-xs font-semibold text-gray-700 bg-emerald-50 font-bold">
+                          Total
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {employeeSizeList.map((size, index) => {
-                        const geo1 = employeeSizeData[size]?.[geolocations[0] || "Geo1"] || 0;
-                        const geo2 = employeeSizeData[size]?.[geolocations[1] || "Geo2"] || 0;
+                        const geo1 =
+                          employeeSizeData[size]?.[geolocations[0] || "Geo1"] ||
+                          0;
+                        const geo2 =
+                          employeeSizeData[size]?.[geolocations[1] || "Geo2"] ||
+                          0;
                         const total = geo1 + geo2;
                         return (
-                          <tr key={size} className={`border-b border-gray-100 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-emerald-50 transition-colors`}>
-                            <td className="px-6 py-3 text-sm font-medium text-gray-900">{size}</td>
-                            <td className="px-6 py-3 text-sm text-center text-gray-600">{geo1}</td>
-                            <td className="px-6 py-3 text-sm text-center text-gray-600">{geo2}</td>
-                            <td className="px-6 py-3 text-sm text-center font-bold text-emerald-600">{total}</td>
+                          <tr
+                            key={size}
+                            className={`border-b border-gray-100 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"} hover:bg-emerald-50 transition-colors`}
+                          >
+                            <td className="px-6 py-3 text-sm font-medium text-gray-900">
+                              {size}
+                            </td>
+                            <td className="px-6 py-3 text-sm text-center text-gray-600">
+                              {geo1}
+                            </td>
+                            <td className="px-6 py-3 text-sm text-center text-gray-600">
+                              {geo2}
+                            </td>
+                            <td className="px-6 py-3 text-sm text-center font-bold text-emerald-600">
+                              {total}
+                            </td>
                           </tr>
                         );
                       })}
                       <tr className="bg-gradient-to-r from-emerald-100 to-emerald-50 border-t-2 border-emerald-200 font-bold">
-                        <td className="px-6 py-3 text-sm text-gray-900">Total</td>
-                        <td className="px-6 py-3 text-sm text-center text-gray-900">
-                          {employeeSizeList.reduce((sum, size) => sum + (employeeSizeData[size]?.[geolocations[0] || "Geo1"] || 0), 0)}
+                        <td className="px-6 py-3 text-sm text-gray-900">
+                          Total
                         </td>
                         <td className="px-6 py-3 text-sm text-center text-gray-900">
-                          {employeeSizeList.reduce((sum, size) => sum + (employeeSizeData[size]?.[geolocations[1] || "Geo2"] || 0), 0)}
+                          {employeeSizeList.reduce(
+                            (sum, size) =>
+                              sum +
+                              (employeeSizeData[size]?.[
+                                geolocations[0] || "Geo1"
+                              ] || 0),
+                            0,
+                          )}
+                        </td>
+                        <td className="px-6 py-3 text-sm text-center text-gray-900">
+                          {employeeSizeList.reduce(
+                            (sum, size) =>
+                              sum +
+                              (employeeSizeData[size]?.[
+                                geolocations[1] || "Geo2"
+                              ] || 0),
+                            0,
+                          )}
                         </td>
                         <td className="px-6 py-3 text-sm text-center text-emerald-700">
-                          {employeeSizeList.reduce((sum, size) => sum + ((employeeSizeData[size]?.[geolocations[0] || "Geo1"] || 0) + (employeeSizeData[size]?.[geolocations[1] || "Geo2"] || 0)), 0)}
+                          {employeeSizeList.reduce(
+                            (sum, size) =>
+                              sum +
+                              ((employeeSizeData[size]?.[
+                                geolocations[0] || "Geo1"
+                              ] || 0) +
+                                (employeeSizeData[size]?.[
+                                  geolocations[1] || "Geo2"
+                                ] || 0)),
+                            0,
+                          )}
                         </td>
                       </tr>
                     </tbody>
@@ -653,7 +800,6 @@ function DeliverablesDialog({
               </div>
             </TabsContent>
           </Tabs>
-
 
           {/* Important Information */}
           <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
@@ -665,7 +811,8 @@ function DeliverablesDialog({
               <li className="flex gap-3 text-gray-700">
                 <ChevronRight className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
                 <span className="text-sm">
-                  These are estimated counts based on current database. Final numbers may vary slightly
+                  These are estimated counts based on current database. Final
+                  numbers may vary slightly
                 </span>
               </li>
               <li className="flex gap-3 text-gray-700">
@@ -677,12 +824,12 @@ function DeliverablesDialog({
               <li className="flex gap-3 text-gray-700">
                 <ChevronRight className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
                 <span className="text-sm">
-                  All deliverables include verified contact information and professional background
+                  All deliverables include verified contact information and
+                  professional background
                 </span>
               </li>
             </ul>
           </div>
-
         </div>
       </DialogContent>
     </Dialog>
@@ -838,9 +985,7 @@ export default function CampaignRequestForm() {
                   File Upload
                 </h3>
               </div>
-              <p className="text-xs text-gray-600 mb-4">
-                Upload TAL File
-              </p>
+              <p className="text-xs text-gray-600 mb-4">Upload TAL File</p>
 
               <FileUpload onFileChange={setUploadedFile} file={uploadedFile} />
             </div>
@@ -1006,7 +1151,8 @@ export default function CampaignRequestForm() {
 
               <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4">
                 <p className="text-xs text-blue-800">
-                  All required fields have been filled. Click the button below to submit your campaign request.
+                  All required fields have been filled. Click the button below
+                  to submit your campaign request.
                 </p>
               </div>
 
