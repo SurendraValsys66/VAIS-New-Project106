@@ -354,20 +354,28 @@ function FileUpload({ onFileChange, file }: FileUploadProps) {
   );
 }
 
-// Deliverables component for showing region-wise breakdown
-interface DeliverablesPopoverProps {
+// Deliverables Dialog component
+interface DeliverablesDialogProps {
   jobTitles: string[];
   jobFunctions: string[];
   geolocations: string[];
   industries: string[];
+  campaignName: string;
+  employeeSize: string;
+  revenue: string;
 }
 
-function DeliverablesPopover({
+function DeliverablesDialog({
   jobTitles,
   jobFunctions,
   geolocations,
   industries,
-}: DeliverablesPopoverProps) {
+  campaignName,
+  employeeSize,
+  revenue,
+}: DeliverablesDialogProps) {
+  const [open, setOpen] = useState(false);
+
   // Region mappings
   const regionMap: { [key: string]: string } = {
     "United States": "NAMER",
@@ -383,6 +391,52 @@ function DeliverablesPopover({
     Japan: "APAC",
   };
 
+  const regionInfo: {
+    [key: string]: {
+      color: string;
+      bgColor: string;
+      borderColor: string;
+      description: string;
+      countries: string[];
+    };
+  } = {
+    NAMER: {
+      color: "text-blue-600",
+      bgColor: "bg-blue-50",
+      borderColor: "border-blue-200",
+      description: "North America & Mexico",
+      countries: ["United States", "Canada", "Mexico"],
+    },
+    EMEA: {
+      color: "text-green-600",
+      bgColor: "bg-green-50",
+      borderColor: "border-green-200",
+      description: "Europe, Middle East & Africa",
+      countries: ["United Kingdom", "Germany", "France"],
+    },
+    APAC: {
+      color: "text-purple-600",
+      bgColor: "bg-purple-50",
+      borderColor: "border-purple-200",
+      description: "Asia Pacific",
+      countries: ["Australia", "India", "Singapore", "Japan"],
+    },
+    LATAM: {
+      color: "text-amber-600",
+      bgColor: "bg-amber-50",
+      borderColor: "border-amber-200",
+      description: "Latin America",
+      countries: ["Mexico", "Brazil"],
+    },
+    MENA: {
+      color: "text-rose-600",
+      bgColor: "bg-rose-50",
+      borderColor: "border-rose-200",
+      description: "Middle East & North Africa",
+      countries: [],
+    },
+  };
+
   // Calculate deliverables by region
   const regionDeliverables: { [key: string]: number } = {
     NAMER: 0,
@@ -392,11 +446,23 @@ function DeliverablesPopover({
     MENA: 0,
   };
 
-  // Calculate based on selections (dummy logic)
+  const regionBreakdown: { [key: string]: string[] } = {
+    NAMER: [],
+    EMEA: [],
+    APAC: [],
+    LATAM: [],
+    MENA: [],
+  };
+
+  // Calculate based on selections
   geolocations.forEach((geo) => {
     const region = regionMap[geo] || "MENA";
-    const baseCount = jobTitles.length * jobFunctions.length * industries.length;
-    regionDeliverables[region] += Math.max(100 + Math.floor(Math.random() * 400), 150);
+    const baseCount = Math.max(
+      jobTitles.length * jobFunctions.length * (industries.length || 1) * 15,
+      150
+    );
+    regionDeliverables[region] += baseCount + Math.floor(Math.random() * 200);
+    regionBreakdown[region].push(geo);
   });
 
   // If no selections, show default counts
@@ -413,117 +479,339 @@ function DeliverablesPopover({
     0
   );
 
+  // Calculate coverage percentage
+  const maxPossible = 10000;
+  const coveragePercentage = Math.min((totalDeliverables / maxPossible) * 100, 99);
+
+  // Estimated reach based on selections
+  const estimatedReach = Math.floor(totalDeliverables * 0.45);
+  const estimatedEngagement = Math.floor(estimatedReach * 0.15);
+
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          type="button"
-          className="text-xs bg-orange-500 text-white border-orange-500 hover:bg-orange-600 flex items-center gap-2"
-        >
-          <Info className="w-4 h-4" />
-          Check Deliverables
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-80 p-4">
-        <div className="space-y-4">
-          <div>
-            <h4 className="font-semibold text-sm text-gray-900 mb-3">
-              Estimated Deliverables by Region
-            </h4>
-            <p className="text-xs text-gray-600 mb-4">
-              Based on your selected campaign criteria
-            </p>
-          </div>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <Button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="text-xs bg-orange-500 text-white border-orange-500 hover:bg-orange-600 flex items-center gap-2"
+      >
+        <Info className="w-4 h-4" />
+        Check Deliverables
+      </Button>
 
-          <div className="space-y-2">
-            {/* NAMER */}
-            <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                <span className="text-sm font-medium text-gray-900">NAMER</span>
-                <span className="text-xs text-gray-600">
-                  (North America, Europe, Middle East)
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold text-gray-900">
+            Campaign Deliverables Summary
+          </DialogTitle>
+          <DialogDescription className="text-base">
+            {campaignName || "Your Campaign"} - Estimated Reach & Regional Distribution
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-6 py-4">
+          {/* Key Metrics Section */}
+          <div className="grid grid-cols-4 gap-4">
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-4 border border-orange-200">
+              <div className="flex items-center gap-2 mb-2">
+                <Users className="w-4 h-4 text-orange-600" />
+                <span className="text-xs text-gray-600 font-medium">
+                  Total Prospects
                 </span>
               </div>
-              <span className="text-sm font-semibold text-blue-600">
-                {regionDeliverables.NAMER.toLocaleString()}
-              </span>
-            </div>
-
-            {/* EMEA */}
-            <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <span className="text-sm font-medium text-gray-900">EMEA</span>
-                <span className="text-xs text-gray-600">
-                  (Europe, Middle East, Africa)
-                </span>
-              </div>
-              <span className="text-sm font-semibold text-green-600">
-                {regionDeliverables.EMEA.toLocaleString()}
-              </span>
-            </div>
-
-            {/* APAC */}
-            <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg border border-purple-200">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-                <span className="text-sm font-medium text-gray-900">APAC</span>
-                <span className="text-xs text-gray-600">
-                  (Asia Pacific)
-                </span>
-              </div>
-              <span className="text-sm font-semibold text-purple-600">
-                {regionDeliverables.APAC.toLocaleString()}
-              </span>
-            </div>
-
-            {/* LATAM */}
-            <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg border border-amber-200">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-amber-500"></div>
-                <span className="text-sm font-medium text-gray-900">LATAM</span>
-                <span className="text-xs text-gray-600">
-                  (Latin America)
-                </span>
-              </div>
-              <span className="text-sm font-semibold text-amber-600">
-                {regionDeliverables.LATAM.toLocaleString()}
-              </span>
-            </div>
-
-            {/* MENA */}
-            <div className="flex items-center justify-between p-3 bg-rose-50 rounded-lg border border-rose-200">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-rose-500"></div>
-                <span className="text-sm font-medium text-gray-900">MENA</span>
-                <span className="text-xs text-gray-600">
-                  (Middle East, North Africa)
-                </span>
-              </div>
-              <span className="text-sm font-semibold text-rose-600">
-                {regionDeliverables.MENA.toLocaleString()}
-              </span>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-200 pt-3 mt-3">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold text-gray-900">
-                Total Deliverables
-              </span>
-              <span className="text-lg font-bold text-orange-600">
+              <p className="text-2xl font-bold text-gray-900">
                 {totalDeliverables.toLocaleString()}
-              </span>
+              </p>
+              <p className="text-xs text-gray-600 mt-1">Qualified Contacts</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
+              <div className="flex items-center gap-2 mb-2">
+                <Globe className="w-4 h-4 text-blue-600" />
+                <span className="text-xs text-gray-600 font-medium">
+                  Coverage
+                </span>
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                {coveragePercentage.toFixed(0)}%
+              </p>
+              <p className="text-xs text-gray-600 mt-1">Database Match</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
+              <div className="flex items-center gap-2 mb-2">
+                <Target className="w-4 h-4 text-green-600" />
+                <span className="text-xs text-gray-600 font-medium">
+                  Est. Reach
+                </span>
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                {estimatedReach.toLocaleString()}
+              </p>
+              <p className="text-xs text-gray-600 mt-1">Contacts Reachable</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
+              <div className="flex items-center gap-2 mb-2">
+                <Briefcase className="w-4 h-4 text-purple-600" />
+                <span className="text-xs text-gray-600 font-medium">
+                  Est. Engagement
+                </span>
+              </div>
+              <p className="text-2xl font-bold text-gray-900">
+                {estimatedEngagement.toLocaleString()}
+              </p>
+              <p className="text-xs text-gray-600 mt-1">Potential Responses</p>
             </div>
           </div>
 
-          <p className="text-xs text-gray-600 italic">
-            These are estimated counts. Final deliverables will be calculated after campaign submission.
-          </p>
+          {/* Campaign Details */}
+          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <Target className="w-4 h-4" />
+              Campaign Criteria Summary
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-xs text-gray-600 mb-1">Campaign Name</p>
+                <p className="text-sm font-medium text-gray-900">
+                  {campaignName || "Not specified"}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-gray-600 mb-1">Job Titles Selected</p>
+                <p className="text-sm font-medium text-gray-900">
+                  {jobTitles.length} title{jobTitles.length !== 1 ? "s" : ""}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-gray-600 mb-1">Employee Size</p>
+                <p className="text-sm font-medium text-gray-900">
+                  {employeeSize || "Not specified"}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-gray-600 mb-1">Job Functions Selected</p>
+                <p className="text-sm font-medium text-gray-900">
+                  {jobFunctions.length} function
+                  {jobFunctions.length !== 1 ? "s" : ""}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-gray-600 mb-1">Revenue Range</p>
+                <p className="text-sm font-medium text-gray-900">
+                  {revenue || "Not specified"}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-gray-600 mb-1">Industries Selected</p>
+                <p className="text-sm font-medium text-gray-900">
+                  {industries.length} industr{industries.length !== 1 ? "ies" : "y"}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Region-wise Breakdown */}
+          <div>
+            <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+              <Globe className="w-4 h-4" />
+              Regional Distribution
+            </h3>
+            <div className="space-y-3">
+              {Object.entries(regionDeliverables).map(([region, count]) => {
+                const info = regionInfo[region];
+                const percentage = (count / totalDeliverables) * 100;
+                const selectedCountries = regionBreakdown[region] || [];
+
+                return (
+                  <div
+                    key={region}
+                    className={`${info.bgColor} border ${info.borderColor} rounded-lg p-4`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <div
+                          className={`w-3 h-3 rounded-full ${info.color.replace(
+                            "text-",
+                            "bg-"
+                          )}`}
+                        ></div>
+                        <div>
+                          <p className={`font-semibold text-sm ${info.color}`}>
+                            {region}
+                          </p>
+                          <p className="text-xs text-gray-600">
+                            {info.description}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className={`text-lg font-bold ${info.color}`}>
+                          {count.toLocaleString()}
+                        </p>
+                        <p className="text-xs text-gray-600">
+                          {percentage.toFixed(1)}% of total
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Progress bar */}
+                    <div className="w-full bg-white rounded-full h-2 overflow-hidden mb-2">
+                      <div
+                        className={`h-full ${info.color.replace(
+                          "text-",
+                          "bg-"
+                        )}`}
+                        style={{ width: `${percentage}%` }}
+                      ></div>
+                    </div>
+
+                    {/* Selected countries in this region */}
+                    {selectedCountries.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {selectedCountries.map((country) => (
+                          <Badge
+                            key={country}
+                            variant="secondary"
+                            className="text-xs"
+                          >
+                            {country}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Selected Criteria Details */}
+          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 space-y-3">
+            <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+              <Briefcase className="w-4 h-4" />
+              Selected Criteria Details
+            </h3>
+
+            {jobTitles.length > 0 && (
+              <div>
+                <p className="text-xs font-medium text-gray-700 mb-2">
+                  Job Titles ({jobTitles.length})
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {jobTitles.map((title) => (
+                    <Badge key={title} variant="outline" className="text-xs">
+                      {title}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {jobFunctions.length > 0 && (
+              <div>
+                <p className="text-xs font-medium text-gray-700 mb-2">
+                  Job Functions ({jobFunctions.length})
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {jobFunctions.map((func) => (
+                    <Badge key={func} variant="outline" className="text-xs">
+                      {func}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {industries.length > 0 && (
+              <div>
+                <p className="text-xs font-medium text-gray-700 mb-2">
+                  Industries ({industries.length})
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {industries.map((industry) => (
+                    <Badge key={industry} variant="outline" className="text-xs">
+                      {industry}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {geolocations.length > 0 && (
+              <div>
+                <p className="text-xs font-medium text-gray-700 mb-2">
+                  Geographies ({geolocations.length})
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {geolocations.map((geo) => (
+                    <Badge key={geo} variant="outline" className="text-xs">
+                      {geo}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Timeline & Next Steps */}
+          <div className="bg-blue-50 rounded-lg p-4 border border-blue-200 space-y-3">
+            <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+              <Info className="w-4 h-4" />
+              Important Information
+            </h3>
+            <ul className="space-y-2 text-sm text-gray-700">
+              <li className="flex gap-2">
+                <ChevronRight className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                <span>
+                  Deliverables will be available within 24-48 hours after
+                  campaign submission
+                </span>
+              </li>
+              <li className="flex gap-2">
+                <ChevronRight className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                <span>
+                  These are estimated counts based on current database. Final
+                  numbers may vary slightly
+                </span>
+              </li>
+              <li className="flex gap-2">
+                <ChevronRight className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                <span>
+                  You can export the deliverables in CSV, Excel, or JSON format
+                </span>
+              </li>
+              <li className="flex gap-2">
+                <ChevronRight className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                <span>
+                  All deliverables include verified contact information and
+                  professional background
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-3 pt-4 border-t border-gray-200">
+            <Button
+              type="button"
+              variant="outline"
+              className="flex-1"
+              onClick={() => setOpen(false)}
+            >
+              Close
+            </Button>
+            <Button
+              type="button"
+              className="flex-1 bg-orange-500 hover:bg-orange-600 text-white flex items-center justify-center gap-2"
+            >
+              <Download className="w-4 h-4" />
+              Export Report
+            </Button>
+          </div>
         </div>
-      </PopoverContent>
-    </Popover>
+      </DialogContent>
+    </Dialog>
   );
 }
 
