@@ -28,6 +28,12 @@ import {
   FileText,
   Trash2,
   Info,
+  Globe,
+  Users,
+  Target,
+  Briefcase,
+  Download,
+  ChevronRight,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -43,6 +49,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 // Form validation schema
