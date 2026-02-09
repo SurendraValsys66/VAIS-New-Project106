@@ -1216,6 +1216,7 @@ export default function CampaignRequestForm() {
                 <DeliverablesDialog
                   jobTitles={form.watch("jobTitles")}
                   jobFunctions={form.watch("jobFunctions")}
+                  jobLevels={form.watch("jobLevels")}
                   geolocations={form.watch("geolocations")}
                   industries={form.watch("industries")}
                   campaignName={form.watch("campaignName")}
