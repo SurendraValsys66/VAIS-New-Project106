@@ -1115,11 +1115,14 @@ export default function CampaignRequestForm() {
                     Submit Campaign
                   </h3>
                 </div>
-                <DeliverablesPopover
+                <DeliverablesDialog
                   jobTitles={form.watch("jobTitles")}
                   jobFunctions={form.watch("jobFunctions")}
                   geolocations={form.watch("geolocations")}
                   industries={form.watch("industries")}
+                  campaignName={form.watch("campaignName")}
+                  employeeSize={form.watch("employeeSize")}
+                  revenue={form.watch("revenue")}
                 />
               </div>
 
