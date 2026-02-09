@@ -502,6 +502,9 @@ function DeliverablesDialog({
 
   const jobLevelData = generateJobLevelData();
 
+  // Calculate Job Level total count
+  const jobLevelTotal = jobLevelList.reduce((sum, level) => sum + ((jobLevelData[level]?.[geolocations[0] || "Geo1"] || 0) + (jobLevelData[level]?.[geolocations[1] || "Geo2"] || 0)), 0);
+
   // Generate Database Reach data by Employee Size
   const employeeSizeList = ["1-10", "11-50", "51-200", "201-500", "501-1000", "1001-5000", "5001-10,000", "10,000+"];
   const generateEmployeeSizeData = () => {
@@ -519,6 +522,9 @@ function DeliverablesDialog({
   };
 
   const employeeSizeData = generateEmployeeSizeData();
+
+  // Calculate Employee Size total count
+  const employeeSizeTotal = employeeSizeList.reduce((sum, size) => sum + ((employeeSizeData[size]?.[geolocations[0] || "Geo1"] || 0) + (employeeSizeData[size]?.[geolocations[1] || "Geo2"] || 0)), 0);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
