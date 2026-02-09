@@ -813,13 +813,12 @@ export default function CampaignRequestForm() {
                     Submit Campaign
                   </h3>
                 </div>
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="text-xs bg-orange-500 text-white border-orange-500 hover:bg-orange-600"
-                >
-                  Clear Differences
-                </Button>
+                <DeliverablesPopover
+                  jobTitles={form.watch("jobTitles")}
+                  jobFunctions={form.watch("jobFunctions")}
+                  geolocations={form.watch("geolocations")}
+                  industries={form.watch("industries")}
+                />
               </div>
 
               <p className="text-xs text-gray-700 mb-3">
