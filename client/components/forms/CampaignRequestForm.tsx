@@ -27,6 +27,7 @@ import {
   ChevronsUpDown,
   FileText,
   Trash2,
+  Info,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
