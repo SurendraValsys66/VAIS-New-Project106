@@ -145,7 +145,6 @@ export function AIEmailGeneratorModal({
   jobLevels,
   geolocations,
   industries,
-  onAddToAssets,
 }: AIEmailGeneratorModalProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [currentSampleIndex, setCurrentSampleIndex] = useState(0);
