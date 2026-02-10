@@ -272,10 +272,10 @@ export function AIEmailGeneratorModal({
                   {/* Email Preview Card */}
                   <div className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
-                      <div className="flex items-start justify-between mb-3">
+                    <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-3 py-2 border-b border-gray-200">
+                      <div className="flex items-start justify-between">
                         <div>
-                          <Badge className="bg-blue-100 text-blue-800 text-xs mb-2">
+                          <Badge className="bg-blue-100 text-blue-800 text-xs mb-1">
                             {sample.tone} Tone
                           </Badge>
                           <h4 className="font-bold text-gray-900 text-sm">
@@ -287,7 +287,7 @@ export function AIEmailGeneratorModal({
                     </div>
 
                     {/* Email Content */}
-                    <div className="p-4 space-y-3">
+                    <div className="p-3 space-y-2">
                       {/* Subject Line */}
                       <div className="bg-gray-50 rounded-lg p-2 border border-gray-200">
                         <p className="text-xs font-semibold text-gray-600 mb-1">
@@ -299,19 +299,21 @@ export function AIEmailGeneratorModal({
                       </div>
 
                       {/* Email Body */}
-                      <div className="bg-white rounded-lg p-3 border border-gray-200 max-h-32 overflow-y-auto">
+                      <div className="bg-white rounded-lg p-3 border border-gray-200 max-h-64 overflow-y-auto">
                         <div className="text-xs text-gray-800 whitespace-pre-wrap leading-relaxed font-mono">
                           {sample.body}
                         </div>
                       </div>
+                    </div>
 
-                      {/* Copy Button */}
+                    {/* Copy Button - Below Email Body */}
+                    <div className="px-3 pb-3">
                       <Button
                         type="button"
-                        size="sm"
+                        size="xs"
                         onClick={() => handleCopy(sample.body, sample.id)}
                         className={cn(
-                          "w-full gap-1 text-xs",
+                          "w-full gap-1 text-xs h-8",
                           copiedId === sample.id
                             ? "bg-green-600 hover:bg-green-700"
                             : "bg-blue-600 hover:bg-blue-700",
@@ -320,7 +322,7 @@ export function AIEmailGeneratorModal({
                         {copiedId === sample.id ? (
                           <>
                             <Check className="w-3 h-3" />
-                            Copied to Clipboard
+                            Copied
                           </>
                         ) : (
                           <>
@@ -330,39 +332,6 @@ export function AIEmailGeneratorModal({
                         )}
                       </Button>
                     </div>
-                  </div>
-
-                  {/* Navigation */}
-                  <div className="flex items-center justify-between">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setCurrentSampleIndex(Math.max(0, index - 1))}
-                      disabled={index === 0}
-                      className="gap-1"
-                    >
-                      <ChevronLeft className="w-3 h-3" />
-                      Previous
-                    </Button>
-
-                    <span className="text-xs text-gray-600">
-                      Sample {index + 1} of {samples.length}
-                    </span>
-
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() =>
-                        setCurrentSampleIndex(Math.min(samples.length - 1, index + 1))
-                      }
-                      disabled={index === samples.length - 1}
-                      className="gap-1"
-                    >
-                      Next
-                      <ChevronRight className="w-3 h-3" />
-                    </Button>
                   </div>
                 </TabsContent>
               ))}
