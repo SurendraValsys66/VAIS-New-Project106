@@ -165,11 +165,6 @@ export function AIEmailGeneratorModal({
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const handleAddAssets = () => {
-    onAddToAssets();
-    onClose();
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
