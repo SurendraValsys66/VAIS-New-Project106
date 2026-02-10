@@ -992,8 +992,8 @@ export default function CampaignRequestForm() {
       values.jobLevels?.length > 0 &&
       values.geolocations?.length > 0 &&
       values.industries?.length > 0 &&
-      values.employeeSize &&
-      values.revenue
+      values.employeeSize?.length > 0 &&
+      values.revenue?.length > 0
     );
   };
 
