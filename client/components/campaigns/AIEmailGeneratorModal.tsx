@@ -13,10 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import {
   Copy,
   Check,
-  ChevronLeft,
-  ChevronRight,
   Mail,
-  Zap,
   Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
