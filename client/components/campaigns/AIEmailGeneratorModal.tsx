@@ -19,6 +19,7 @@ import {
   Edit2,
   Trash2,
   Mail,
+  Paperclip,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
