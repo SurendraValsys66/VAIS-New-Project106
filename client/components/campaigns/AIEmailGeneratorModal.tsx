@@ -307,13 +307,13 @@ export function AIEmailGeneratorModal({
                     </div>
 
                     {/* Copy Button - Below Email Body */}
-                    <div className="px-3 pb-3">
+                    <div className="px-3 pb-3 flex justify-center">
                       <Button
                         type="button"
                         size="xs"
                         onClick={() => handleCopy(sample.body, sample.id)}
                         className={cn(
-                          "w-full gap-1 text-xs h-8",
+                          "gap-1 text-xs h-8 px-4",
                           copiedId === sample.id
                             ? "bg-green-600 hover:bg-green-700"
                             : "bg-blue-600 hover:bg-blue-700",
