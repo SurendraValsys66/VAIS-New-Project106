@@ -34,6 +34,7 @@ import {
   Briefcase,
   Download,
   ChevronRight,
+  Mail,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -59,6 +60,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import { AssetSelector, SelectedAsset } from "./AssetSelector";
 
 // Form validation schema
 const campaignFormSchema = z.object({
