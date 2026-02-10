@@ -167,35 +167,8 @@ ${campaignName}`,
   };
 
   // Handle file upload
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const files = Array.from(e.target.files);
-      const validExtensions = [
-        "pdf",
-        "doc",
-        "docx",
-        "ppt",
-        "pptx",
-        "jpg",
-        "jpeg",
-        "png",
-        "gif",
-        "xls",
-        "xlsx",
-        "csv",
-      ];
-
-      const validFiles = files.filter((file) => {
-        const fileExtension = file.name.split(".").pop()?.toLowerCase() || "";
-        return validExtensions.includes(fileExtension);
-      });
-
-      if (validFiles.length > 0) {
-        setUploadedFiles((prevFiles) => [...prevFiles, ...validFiles]);
-      }
-
-      e.target.value = "";
-    }
+  const handleFileUpload = (files: File[]) => {
+    setUploadedFiles((prevFiles) => [...prevFiles, ...files]);
   };
 
   // Copy email to clipboard
