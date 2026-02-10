@@ -1044,25 +1044,18 @@ export default function CampaignRequestForm() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-xs font-medium">
-                        Employee Size
+                        Employee Size *
                       </FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="h-9 text-sm">
-                            <SelectValue placeholder="Select employee size range" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {employeeSizeOptions.map((size) => (
-                            <SelectItem key={size} value={size}>
-                              {size}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <FormControl>
+                        <MultiSelect
+                          options={employeeSizeOptions}
+                          selected={field.value}
+                          onSelectedChange={field.onChange}
+                          placeholder="Select employee size ranges"
+                          searchPlaceholder="Search..."
+                          showSelectAll={true}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
