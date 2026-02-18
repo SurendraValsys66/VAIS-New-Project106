@@ -113,32 +113,32 @@ export default function MobileBottomNav() {
       `}</style>
 
       <nav className="fixed bottom-0 left-0 right-0 lg:hidden z-40">
-        <div className="relative px-4 pb-4">
-          {/* Active Badge - Floating Circle */}
-          <div
-            className={cn(
-              "absolute transform -translate-x-1/2 -top-6 transition-all duration-300",
-              isAnimating ? "mobile-nav-icon-animate" : "",
-            )}
-            style={{
-              left: `${10 + activeIndex * 20}%`,
-              transition: "left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
-            }}
-          >
-            <div className="w-14 h-14 bg-gradient-to-br from-valasys-orange to-valasys-orange-light rounded-full shadow-lg flex items-center justify-center">
-              {React.createElement(navItems[activeIndex].icon, {
-                className: "w-7 h-7 text-white",
-              })}
-            </div>
-          </div>
-
+        <div className="relative px-4 pt-8 pb-4">
           {/* Black Curved Bar */}
           <div
             className={cn(
-              "relative bg-black/85 rounded-3xl shadow-xl backdrop-blur-sm transition-all duration-300 overflow-hidden",
+              "relative bg-black/85 rounded-3xl shadow-xl backdrop-blur-sm transition-all duration-300 overflow-visible",
               isAnimating ? "mobile-nav-animate" : "",
             )}
           >
+            {/* Active Badge - Floating Circle (Positioned Absolutely Above) */}
+            <div
+              className={cn(
+                "absolute transform -translate-x-1/2 z-50 transition-all duration-300",
+                isAnimating ? "mobile-nav-icon-animate" : "",
+              )}
+              style={{
+                left: `${10 + activeIndex * 20}%`,
+                top: "-28px",
+                transition: "left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              }}
+            >
+              <div className="w-14 h-14 bg-gradient-to-br from-valasys-orange to-valasys-orange-light rounded-full shadow-lg flex items-center justify-center">
+                {React.createElement(navItems[activeIndex].icon, {
+                  className: "w-7 h-7 text-white",
+                })}
+              </div>
+            </div>
             <div className="flex items-center justify-around h-20 px-2">
               {navItems.map((item, index) => {
                 const Icon = item.icon;
